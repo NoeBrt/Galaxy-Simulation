@@ -13,6 +13,8 @@ public class CameraMovement : MonoBehaviour
 
     private Vector3 previousPosition;
 
+    public float DistanceToTarget { get => distanceToTarget; set => distanceToTarget = value; }
+
     private void LateUpdate()
     {
 
@@ -38,8 +40,8 @@ public class CameraMovement : MonoBehaviour
             cam.transform.Rotate(new Vector3(1, 0, 0), rotationAroundXAxis);
             cam.transform.Rotate(new Vector3(0, 1, 0), rotationAroundYAxis, Space.World); // <— This is what makes it work!
         }
-        distanceToTarget += -Input.mouseScrollDelta.y * mouseScroolSpeed * Time.deltaTime;
-        cam.transform.Translate(new Vector3(0, 0, -distanceToTarget));
+        DistanceToTarget += -Input.mouseScrollDelta.y * mouseScroolSpeed * Time.deltaTime;
+        cam.transform.Translate(new Vector3(0, 0, -DistanceToTarget));
 
         previousPosition = newPosition;
 
