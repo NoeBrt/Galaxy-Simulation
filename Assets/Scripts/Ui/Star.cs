@@ -10,18 +10,21 @@ public class Star : MonoBehaviour
 
     // Start is called before the first frame update
     // Update is called once per frame
-   public void UpdatePosition(Galaxy galaxy)
+    public void UpdatePosition(Galaxy galaxy)
     {
         acceleration = Vector3.zero;
         foreach (Star star in galaxy.Stars)
         {
             if (star != this)
             {
-                acceleration += (star.transform.position-transform.position).normalized / Vector3.Distance(transform.position, star.transform.position);
+                acceleration += (star.transform.position - transform.position).normalized / Vector3.Distance(transform.position, star.transform.position);
             }
         }
         velocity += acceleration * Time.deltaTime;
         transform.position += velocity;
+        transform.rotation = Camera.main.transform.rotation;
+        Debug.DrawRay(transform.position, velocity, Color.magenta);
 
     }
+
 }

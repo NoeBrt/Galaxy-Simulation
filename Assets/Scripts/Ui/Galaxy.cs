@@ -20,9 +20,7 @@ public class Galaxy
     public float StarsInitialVelocity { get; set; }
 
 
-
-
-
+  
 
 
 
