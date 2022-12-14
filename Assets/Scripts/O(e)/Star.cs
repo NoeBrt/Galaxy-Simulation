@@ -13,12 +13,12 @@ public class Star : MonoBehaviour
     // Update is called once per frame
     public void UpdatePosition(Galaxy galaxy)
     {
-       acceleration = Vector3.zero;
+        acceleration = Vector3.zero;
         foreach (Star star in galaxy.Stars)
         {
             if (star != this)
             {
-                acceleration += (star.transform.position - transform.position).normalized / Vector3.Distance(transform.position, star.transform.position);
+                acceleration += (star.transform.position - transform.position).normalized / MathF.Pow(Vector3.Distance(transform.position, star.transform.position), 2);
             }
         }
         velocity += acceleration * Time.deltaTime;
@@ -28,11 +28,11 @@ public class Star : MonoBehaviour
         transform.localScale = new Vector3(cameraMovement.DistanceToTarget / 500f, cameraMovement.DistanceToTarget / 500f);
         Debug.DrawRay(transform.position, velocity, Color.magenta);
     }
-   public void CameraView()
+    public void CameraView()
     {
         transform.rotation = Camera.main.transform.rotation;
         CameraMovement cameraMovement = Camera.main.GetComponent<CameraMovement>();
-        transform.localScale = new Vector3(cameraMovement.DistanceToTarget / 500f, cameraMovement.DistanceToTarget / 500f);
+        transform.localScale = new Vector3(cameraMovement.DistanceToTarget / 450f, cameraMovement.DistanceToTarget / 450f);
     }
 
 

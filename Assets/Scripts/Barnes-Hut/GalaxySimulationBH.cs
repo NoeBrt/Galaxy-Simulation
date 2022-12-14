@@ -21,7 +21,7 @@ public class GalaxySimulationBH : MonoBehaviour
         Delete();
         UiValues = new Dictionary<string, float>();
         sliders.ForEach(slider => UiValues.Add(slider.name, slider.value));
-        root = new TreeNode(20, new Rect(0, 0, UiValues["GalaxyRadius"], UiValues["GalaxyRadius"]));
+        root = new TreeNode(50, new Rect(-UiValues["GalaxyRadius"] * 3 / 2f, -UiValues["GalaxyRadius"] * 3 / 2f, UiValues["GalaxyRadius"] * 3, UiValues["GalaxyRadius"] * 3));
         List<Star> stars = new List<Star>();
         for (int i = 0; i < UiValues["StarCount"]; i++)
         {
@@ -49,20 +49,32 @@ public class GalaxySimulationBH : MonoBehaviour
 
     public void Update()
     {
+
         if (simulationStarted)
         {
             foreach (Star star in galaxy.Stars)
             {
-                star.transform.position += root.CalculateTreeForce(star);
+                star.velocity += root.CalculateTreeForce(star);
+                star.transform.position += star.velocity * Time.deltaTime;
                 star.CameraView();
-
+                setStarColor(star);
             }
-            root.ComputeMassDistribution();
+            root.ComputeMassDistribution(UiValues["BlackHoleMass"]);
+            center_galaxy();
+            displayInfoCount();
+
         }
+    }
+
+    void setStarColor(Star star)
+    {
+        Color color = star.GetComponent<SpriteRenderer>().material.color;
+        color.g = Mathf.Clamp(1 / star.acceleration.magnitude, 0.35f, 1f);
+        star.GetComponent<SpriteRenderer>().material.color = color;
     }
     void center_galaxy()
     {
-        Vector3 mass_center = new Vector3();
+        Vector3 mass_center = Vector3.zero;
         foreach (Star star in galaxy.Stars)
             mass_center += star.transform.position;
 
@@ -84,5 +96,17 @@ public class GalaxySimulationBH : MonoBehaviour
     {
         if (root != null)
             root.DrawDebug();
+    }
+
+    public void displayInfoCount()
+    {
+        for (int i = 0; i < 4; i++)
+        {
+            if (root.childs[i] != null)
+                Debug.Log("node n°: " + i + " " + root.childs[i].bodiesStored.Count);
+            else
+                Debug.Log("node n°:" + i + "Empty");
+
+        }
     }
 }

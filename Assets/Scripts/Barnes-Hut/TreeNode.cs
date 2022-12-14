@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class TreeNode
 {
-    private List<Star> bodiesStored;
+    public List<Star> bodiesStored;
     private int maxObjectCount;
-    TreeNode[] childs;
+    public TreeNode[] childs;
     private Rect bounds;
     private List<Star> returnedObjects;
     private List<Star> cellObjects;
-    private float Mass { get; set; }
+    private float Mass { get; set; } = 1;
     private Vector3 CenterOfMass { get; set; }
 
 
@@ -27,7 +27,7 @@ public class TreeNode
     {
         if (childs[0] != null)
         {
-            int indexChild = GetIndexToInsertObject(star.transform.position);
+            int indexChild = GetIndexToInsertObject(new Vector2(star.transform.position.x, star.transform.position.z));
             if (indexChild > -1)
             {
                 childs[indexChild].insertToNode(star);
@@ -52,7 +52,7 @@ public class TreeNode
             while (i >= 0)
             {
                 Star storedBody = bodiesStored[i];
-                int indexChild = GetIndexToInsertObject(storedBody.transform.position);
+                int indexChild = GetIndexToInsertObject(new Vector2(storedBody.transform.position.x, storedBody.transform.position.z));
                 if (indexChild > -1)
                 {
                     childs[indexChild].insertToNode(storedBody);
@@ -65,15 +65,14 @@ public class TreeNode
 
     public void Remove(Star objectToRemove)
     {
-        if (ContainsLocation(objectToRemove.transform.position))
+        if (ContainsLocation(new Vector2(objectToRemove.transform.position.x, objectToRemove.transform.position.z)))
         {
             bodiesStored.Remove(objectToRemove);
-            if (childs[0] != null)
+            for (int i = 0; i < 4; i++)
             {
-                for (int i = 0; i < 4; i++)
-                {
+                if (childs[i] != null)
+
                     childs[i].Remove(objectToRemove);
-                }
             }
         }
     }
@@ -90,17 +89,16 @@ public class TreeNode
         {
             for (int i = 0; i < bodiesStored.Count; i++)
             {
-                if (bodiesStored[i] != null && area.Contains(bodiesStored[i].transform.position))
+                if (bodiesStored[i] != null && area.Contains(new Vector2(bodiesStored[i].transform.position.x, bodiesStored[i].transform.position.z)))
                 {
                     returnedObjects.Add(bodiesStored[i]);
                 }
             }
-            if (childs[0] != null)
+
+            for (int i = 0; i < 4; i++)
             {
-                for (int i = 0; i < 4; i++)
-                {
+                if (childs[i] != null)
                     childs[i].RetrieveObjectsInAreaNoAlloc(area, ref returnedObjects);
-                }
             }
         }
         return returnedObjects;
@@ -118,33 +116,46 @@ public class TreeNode
                     results.Add(bodiesStored[i]);
                 }
             }
-            if (childs[0] != null)
+
+            for (int i = 0; i < 4; i++)
             {
-                for (int i = 0; i < 4; i++)
+                if (childs[i] != null)
                 {
                     childs[i].RetrieveObjectsInAreaNoAlloc(area, ref results);
                 }
             }
         }
     }
-    public void ComputeMassDistribution()
+    public void ComputeMassDistribution(float BlackHoleMass)
     {
         if (bodiesStored.Count == 1)
         {
+            Mass = 1;
             CenterOfMass = bodiesStored[0].transform.position;
-            Mass = bodiesStored.Count;
         }
         else
         {
-            if (childs[0] != null)
-                foreach (TreeNode child in childs)
+            foreach (Star star in bodiesStored)
+            {
+                CenterOfMass += star.transform.position;
+            }
+            Mass = bodiesStored.Count;
+
+            for (int i = 0; i < 4; i++)
+            {
+                if (childs[i] != null)
                 {
-                    child.ComputeMassDistribution();
-                    Mass += child.Mass;
-                    CenterOfMass += child.Mass * child.CenterOfMass;
+                    childs[i].ComputeMassDistribution(BlackHoleMass);
+                    Mass += childs[i].Mass;
+                    CenterOfMass += childs[i].Mass * childs[i].CenterOfMass;
                 }
+            }
+            Mass += BlackHoleMass;
+            CenterOfMass += Vector3.zero * BlackHoleMass;
             CenterOfMass /= Mass;
+
         }
+
 
     }
     bool rectOverlap(Rect A, Rect B)
@@ -212,23 +223,23 @@ public class TreeNode
         Vector3 acceleration = Vector3.zero;
         if (bodiesStored.Count == 1)
         {
-            acceleration = getAcceleration(star.transform.position, bodiesStored[0].transform.position);
+            acceleration = getAcceleration(star.transform.position, bodiesStored[0].transform.position, 1);
         }
         else
         {
             float r = Vector3.Distance(CenterOfMass, star.transform.position);
             float d = bounds.height;
-            if (d / r < 0)
+            if (d / r < 1f)
             {
-                acceleration = getAcceleration(star.transform.position, CenterOfMass);
+                acceleration = getAcceleration(star.transform.position, CenterOfMass, Mass);
             }
             else
             {
-                if (childs[0] != null)
-                    foreach (TreeNode child in childs)
-                    {
-                        acceleration += child.CalculateTreeForce(star);
-                    }
+                for (int i = 0; i < 4; i++)
+                {
+                    if (childs[i] != null)
+                        acceleration += childs[i].CalculateTreeForce(star);
+                }
 
             }
         }
@@ -236,9 +247,11 @@ public class TreeNode
     }
 
 
-    public Vector3 getAcceleration(Vector3 body1, Vector3 body2)
+    public Vector3 getAcceleration(Vector3 body1, Vector3 body2, float k)
     {
-        return (body1 - body2).normalized / Vector3.Distance(body1, body2);
+        if (body1 == body2)
+            return Vector3.zero;
+        return (body2 - body1).normalized * k / Mathf.Pow(Vector3.Distance(body1, body2), 2);
 
     }
 }
