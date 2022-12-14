@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/Barne-Hut.unity
+    guid: ca340f08590961a41bbdf8aaab2d95e4
   m_configObjects: {}

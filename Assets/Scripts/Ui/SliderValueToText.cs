@@ -11,6 +11,7 @@ public class SliderValueToText : MonoBehaviour
     void Start()
     {
         textSliderValue = GetComponent<Text>();
+        textSliderValue.text = sliderUI.value + "";
 
     }
     private void Update()

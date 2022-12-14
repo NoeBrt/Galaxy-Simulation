@@ -23,10 +23,7 @@ public class Star : MonoBehaviour
         }
         velocity += acceleration * Time.deltaTime;
         transform.position += velocity;
-        transform.rotation = Camera.main.transform.rotation;
-        CameraMovement cameraMovement = Camera.main.GetComponent<CameraMovement>();
-        transform.localScale = new Vector3(cameraMovement.DistanceToTarget / 500f, cameraMovement.DistanceToTarget / 500f);
-        Debug.DrawRay(transform.position, velocity, Color.magenta);
+        CameraView();
     }
     public void CameraView()
     {

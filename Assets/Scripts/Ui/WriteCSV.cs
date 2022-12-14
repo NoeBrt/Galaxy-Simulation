@@ -34,7 +34,7 @@ public class WriteCSV
     }
     void getFilePath()
     {
-        filename = EditorUtility.SaveFilePanel("CurrentBallMovement", "", "dataBallInBound", ".csv");
+        //filename = EditorUtility.SaveFilePanel("Save Perfomance Info", "", "FPSandCPUusage", ".csv");
 
         if (File.Exists(filename))
         {

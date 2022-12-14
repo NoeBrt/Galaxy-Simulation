@@ -48,4 +48,14 @@ public class CameraMovement : MonoBehaviour
 
 
     }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            GameObject.Find("Canvas").SetActive(!GameObject.Find("Canvas").activeSelf);
+            GameObject.Find("Canvas1").SetActive(!GameObject.Find("Canvas").activeSelf);
+
+        }
+    }
 }

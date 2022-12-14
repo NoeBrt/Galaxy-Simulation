@@ -10,7 +10,7 @@ public class TreeNode
     private Rect bounds;
     private List<Star> returnedObjects;
     private List<Star> cellObjects;
-    private float Mass { get; set; } = 1;
+    private float Mass { get; set; }
     private Vector3 CenterOfMass { get; set; }
 
 
@@ -77,55 +77,6 @@ public class TreeNode
         }
     }
 
-
-    public List<Star> RetrieveObjectsInArea(Rect area)
-    {
-        if (returnedObjects == null)
-            returnedObjects = new List<Star>();
-
-        returnedObjects.Clear();
-
-        if (rectOverlap(bounds, area))
-        {
-            for (int i = 0; i < bodiesStored.Count; i++)
-            {
-                if (bodiesStored[i] != null && area.Contains(new Vector2(bodiesStored[i].transform.position.x, bodiesStored[i].transform.position.z)))
-                {
-                    returnedObjects.Add(bodiesStored[i]);
-                }
-            }
-
-            for (int i = 0; i < 4; i++)
-            {
-                if (childs[i] != null)
-                    childs[i].RetrieveObjectsInAreaNoAlloc(area, ref returnedObjects);
-            }
-        }
-        return returnedObjects;
-    }
-
-
-    public void RetrieveObjectsInAreaNoAlloc(Rect area, ref List<Star> results)
-    {
-        if (rectOverlap(bounds, area))
-        {
-            for (int i = 0; i < bodiesStored.Count; i++)
-            {
-                if (bodiesStored[i] != null && area.Contains(bodiesStored[i].transform.position))
-                {
-                    results.Add(bodiesStored[i]);
-                }
-            }
-
-            for (int i = 0; i < 4; i++)
-            {
-                if (childs[i] != null)
-                {
-                    childs[i].RetrieveObjectsInAreaNoAlloc(area, ref results);
-                }
-            }
-        }
-    }
     public void ComputeMassDistribution(float BlackHoleMass)
     {
         if (bodiesStored.Count == 1)
@@ -158,16 +109,6 @@ public class TreeNode
 
 
     }
-    bool rectOverlap(Rect A, Rect B)
-    {
-        bool xOverlap = valueInRange(A.x, B.x, B.x + B.width) ||
-                        valueInRange(B.x, A.x, A.x + A.width);
-
-        bool yOverlap = valueInRange(A.y, B.y, B.y + B.height) ||
-                        valueInRange(B.y, A.y, A.y + A.height);
-
-        return xOverlap && yOverlap;
-    }
     public void Clear()
     {
         bodiesStored.Clear();
@@ -185,9 +126,6 @@ public class TreeNode
     {
         return bounds.Contains(location);
     }
-
-    bool valueInRange(float value, float min, float max)
-    { return (value >= min) && (value <= max); }
 
     private int GetIndexToInsertObject(Vector2 location)
     {
@@ -217,8 +155,7 @@ public class TreeNode
             }
         }
     }
-
-    public Vector3 CalculateTreeForce(Star star)
+    public Vector3 CalculateTreeForce(Star star, float teta)
     {
         Vector3 acceleration = Vector3.zero;
         if (bodiesStored.Count == 1)
@@ -227,9 +164,12 @@ public class TreeNode
         }
         else
         {
+            //distance star-center of mass
             float r = Vector3.Distance(CenterOfMass, star.transform.position);
+            //height of node
             float d = bounds.height;
-            if (d / r < 1f)
+            //d/r < teta
+            if (d / r < teta)
             {
                 acceleration = getAcceleration(star.transform.position, CenterOfMass, Mass);
             }
@@ -238,7 +178,7 @@ public class TreeNode
                 for (int i = 0; i < 4; i++)
                 {
                     if (childs[i] != null)
-                        acceleration += childs[i].CalculateTreeForce(star);
+                        acceleration += childs[i].CalculateTreeForce(star, teta);
                 }
 
             }

@@ -91,7 +91,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5914724508403755040}
-  - component: {fileID: 5914724508403755041}
+  - component: {fileID: 1527729812}
   m_Layer: 5
   m_Name: performance
   m_TagString: Untagged
@@ -121,7 +121,7 @@ RectTransform:
   m_AnchoredPosition: {x: 533, y: -300}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &5914724508403755041
+--- !u!114 &1527729812
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -130,7 +130,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5914724508403755043}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d168e19321521da418a69abe8fe2be88, type: 3}
+  m_Script: {fileID: 11500000, guid: faeaad84e1724b14b8706b1eedc2cd3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   cpuCounterText: {fileID: 5914724508273649850}

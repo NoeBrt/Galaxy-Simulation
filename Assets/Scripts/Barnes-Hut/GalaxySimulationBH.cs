@@ -54,13 +54,13 @@ public class GalaxySimulationBH : MonoBehaviour
         {
             foreach (Star star in galaxy.Stars)
             {
-                star.velocity += root.CalculateTreeForce(star);
+                star.velocity += root.CalculateTreeForce(star, UiValues["Teta"]);
                 star.transform.position += star.velocity * Time.deltaTime;
                 star.CameraView();
                 setStarColor(star);
             }
             root.ComputeMassDistribution(UiValues["BlackHoleMass"]);
-            center_galaxy();
+            //  center_galaxy();
             displayInfoCount();
 
         }
