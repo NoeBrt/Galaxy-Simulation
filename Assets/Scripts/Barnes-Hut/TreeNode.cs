@@ -8,8 +8,6 @@ public class TreeNode
     private int maxObjectCount;
     public TreeNode[] childs;
     private Rect bounds;
-    private List<Star> returnedObjects;
-    private List<Star> cellObjects;
     private float Mass { get; set; }
     private Vector3 CenterOfMass { get; set; }
 
@@ -122,6 +120,7 @@ public class TreeNode
             }
         }
     }
+
     public bool ContainsLocation(Vector2 location)
     {
         return bounds.Contains(location);
@@ -138,6 +137,7 @@ public class TreeNode
         }
         return -1;
     }
+
     public void DrawDebug()
     {
         Gizmos.DrawLine(new Vector3(bounds.x, 0, bounds.y), new Vector3(bounds.x, 0, bounds.y + bounds.height));
@@ -155,12 +155,14 @@ public class TreeNode
             }
         }
     }
-    public Vector3 CalculateTreeForce(Star star, float teta)
+
+
+    public Vector3 CalculateTreeForce(Star star, float teta, float SmoothingLenght)
     {
         Vector3 acceleration = Vector3.zero;
         if (bodiesStored.Count == 1)
         {
-            acceleration = getAcceleration(star.transform.position, bodiesStored[0].transform.position, 1);
+            acceleration = getAcceleration(star.transform.position, bodiesStored[0].transform.position, 1, SmoothingLenght);
         }
         else
         {
@@ -171,14 +173,14 @@ public class TreeNode
             //d/r < teta
             if (d / r < teta)
             {
-                acceleration = getAcceleration(star.transform.position, CenterOfMass, Mass);
+                acceleration = getAcceleration(star.transform.position, CenterOfMass, Mass, SmoothingLenght);
             }
             else
             {
                 for (int i = 0; i < 4; i++)
                 {
                     if (childs[i] != null)
-                        acceleration += childs[i].CalculateTreeForce(star, teta);
+                        acceleration += childs[i].CalculateTreeForce(star, teta, SmoothingLenght);
                 }
 
             }
@@ -187,11 +189,11 @@ public class TreeNode
     }
 
 
-    public Vector3 getAcceleration(Vector3 body1, Vector3 body2, float k)
+    public Vector3 getAcceleration(Vector3 body1, Vector3 body2, float k, float SmoothingLenght)
     {
         if (body1 == body2)
             return Vector3.zero;
-        return (body2 - body1).normalized * k / Mathf.Pow(Vector3.Distance(body1, body2), 2);
+        return (body2 - body1).normalized * k / (Mathf.Pow(Vector3.Distance(body1, body2), 2) + SmoothingLenght);
 
     }
 }

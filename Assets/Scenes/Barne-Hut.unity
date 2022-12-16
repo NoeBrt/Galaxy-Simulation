@@ -2274,6 +2274,8 @@ MonoBehaviour:
   - {fileID: 1424864197}
   - {fileID: 2128957515}
   - {fileID: 288606309}
+  right: {r: 0.08533281, g: 0.64168936, b: 0.9622642, a: 1}
+  left: {r: 1, g: 0.6396315, b: 0, a: 1}
 --- !u!1 &795290070
 GameObject:
   m_ObjectHideFlags: 0
@@ -4925,7 +4927,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1288979786}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 200
+  m_MaxValue: 500
   m_WholeNumbers: 0
   m_Value: 0
   m_OnValueChanged:

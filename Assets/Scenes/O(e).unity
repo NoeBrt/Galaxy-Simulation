@@ -2267,7 +2267,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.3
-  far clip plane: 5000
+  far clip plane: 5500
   field of view: 60
   orthographic: 0
   orthographic size: 5
@@ -3498,7 +3498,7 @@ GameObject:
   - component: {fileID: 1424864196}
   - component: {fileID: 1424864197}
   m_Layer: 5
-  m_Name: SmoothingLenghtSlider
+  m_Name: SmoothingLenght
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3574,7 +3574,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1288979786}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 1
+  m_MaxValue: 100
   m_WholeNumbers: 0
   m_Value: 0
   m_OnValueChanged:
@@ -3716,7 +3716,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 335851276}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 1
+  m_MaxValue: 5
   m_WholeNumbers: 0
   m_Value: 0
   m_OnValueChanged:
@@ -4956,6 +4956,10 @@ PrefabInstance:
     - target: {fileID: 1670775545857815810, guid: 128da68e3fb3a604983e1cab6a3d2ca2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1670775545857815811, guid: 128da68e3fb3a604983e1cab6a3d2ca2, type: 3}
+      propertyPath: m_Interactable
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 128da68e3fb3a604983e1cab6a3d2ca2, type: 3}
