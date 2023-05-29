@@ -13,7 +13,7 @@ This project is a simulation of a galaxy using the Barnes-Hut algorithm. Users c
 
 ## Usage
 
-1. Clone the repository or download the project files.
+1. Clone the repository, download the project files or download the release.
 2. Open the simulation in your preferred programming environment.
 3. Adjust the simulation parameters, such as the number of stars, galaxy size, galaxy width, star velocities, theta value, and smoothing length.
 4. If desired, add a black hole to the center of the galaxy and adjust its mass.
