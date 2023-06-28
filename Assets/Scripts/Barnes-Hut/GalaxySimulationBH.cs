@@ -21,13 +21,13 @@ public class GalaxySimulationBH : MonoBehaviour
         Delete();
         UiValues = new Dictionary<string, float>();
         sliders.ForEach(slider => UiValues.Add(slider.name, slider.value));
-        root = new TreeNode(50, new Rect(-UiValues["GalaxyRadius"] * 3 / 2f, -UiValues["GalaxyRadius"] * 3 / 2f, UiValues["GalaxyRadius"] * 3, UiValues["GalaxyRadius"] * 3));
+        root = new TreeNode(50,new Vector3(-UiValues["GalaxyRadius"] * 3 / 2f, -UiValues["GalaxyRadius"] * 3 / 2f),UiValues["GalaxyRadius"]*3f);
         List<Star> stars = new List<Star>();
         for (int i = 0; i < UiValues["StarCount"]; i++)
         {
             stars.Add(Instantiate(starPrefab, DiscPos(Random.Range(0f, 360f), Random.Range(-UiValues["GalaxyThickness"], UiValues["GalaxyThickness"]), Random.Range(-UiValues["GalaxyRadius"], UiValues["GalaxyRadius"])), starPrefab.transform.rotation, transform));
             stars[i].velocity = new Vector3((stars[i].transform.position.x * Mathf.Cos(90f)) - (stars[i].transform.position.z * Mathf.Sin(90f)), 0f, (stars[i].transform.position.z * Mathf.Cos(90f)) + (stars[i].transform.position.x * Mathf.Sin(90f))).normalized * UiValues["StarInitialVelocity"];
-            root.insertToNode(stars[i]);
+            root.InsertToNode(stars[i]);
         }
         galaxy = new Galaxy(stars, UiValues["GalaxyRadius"], UiValues["GalaxyRadius"], UiValues["StarInitialVelocity"]);
         simulationStarted = true;

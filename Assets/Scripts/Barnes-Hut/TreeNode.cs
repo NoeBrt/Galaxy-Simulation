@@ -7,7 +7,9 @@ public class TreeNode
     public List<Star> bodiesStored;
     private int maxObjectCount;
     public TreeNode[] childs;
-    private Rect bounds;
+    private float bound;
+    private Vector3 position;
+
     private List<Star> returnedObjects;
     private List<Star> cellObjects;
     private float Mass { get; set; }
@@ -16,56 +18,63 @@ public class TreeNode
 
 
     // Start is called before the first frame update
-    public TreeNode(int maxSize, Rect bounds)
+    public TreeNode(int maxSize, Vector3 position, float bound)
     {
-        this.bounds = bounds;
+        this.bound = bound;
         maxObjectCount = maxSize;
-        childs = new TreeNode[4];
+        this.position = position;
+        childs = new TreeNode[8];
         bodiesStored = new List<Star>(maxSize);
     }
-    public void insertToNode(Star star)
+    public void InsertToNode(Star star)
     {
         if (childs[0] != null)
         {
-            int indexChild = GetIndexToInsertObject(new Vector2(star.transform.position.x, star.transform.position.z));
+            int indexChild = GetIndexToInsertObject(star.transform.position);
             if (indexChild > -1)
             {
-                childs[indexChild].insertToNode(star);
+                childs[indexChild].InsertToNode(star);
             }
             return;
         }
+
         bodiesStored.Add(star);
+
         if (bodiesStored.Count > maxObjectCount)
         {
             if (childs[0] == null)
             {
-                float subWidth = (bounds.width / 2f);
-                float subHeight = (bounds.height / 2f);
-                float x = bounds.x;
-                float y = bounds.y;
-                childs[0] = new TreeNode(maxObjectCount, new Rect(x + subWidth, y, subWidth, subHeight));
-                childs[1] = new TreeNode(maxObjectCount, new Rect(x, y, subWidth, subHeight));
-                childs[2] = new TreeNode(maxObjectCount, new Rect(x, y + subHeight, subWidth, subHeight));
-                childs[3] = new TreeNode(maxObjectCount, new Rect(x + subWidth, y + subHeight, subWidth, subHeight));
+                float subBound = bound / 2f;
+                float x = position.x;
+                float y = position.y;
+                float z = position.z;
+
+                childs[0] = new TreeNode(maxObjectCount, new Vector3(x + subBound, y, z), subBound);
+                childs[1] = new TreeNode(maxObjectCount, new Vector3(x, y, z + subBound), subBound);
+                childs[2] = new TreeNode(maxObjectCount, new Vector3(x, y + subBound, z), subBound);
+                childs[3] = new TreeNode(maxObjectCount, new Vector3(x + subBound, y + subBound, z), subBound);
+                childs[4] = new TreeNode(maxObjectCount, new Vector3(x + subBound, y, z + subBound), subBound);
+                childs[5] = new TreeNode(maxObjectCount, new Vector3(x, y, z + subBound), subBound);
+                childs[6] = new TreeNode(maxObjectCount, new Vector3(x, y + subBound, z + subBound), subBound);
+                childs[7] = new TreeNode(maxObjectCount, new Vector3(x + subBound, y + subBound, z + subBound), subBound);
             }
-            int i = bodiesStored.Count - 1;
-            while (i >= 0)
+
+            for (int i = bodiesStored.Count - 1; i >= 0; i--)
             {
                 Star storedBody = bodiesStored[i];
-                int indexChild = GetIndexToInsertObject(new Vector2(storedBody.transform.position.x, storedBody.transform.position.z));
+                int indexChild = GetIndexToInsertObject(storedBody.transform.position);
                 if (indexChild > -1)
                 {
-                    childs[indexChild].insertToNode(storedBody);
+                    childs[indexChild].InsertToNode(storedBody);
+                    bodiesStored.RemoveAt(i);
                 }
-                bodiesStored.RemoveAt(i);
-                i--;
             }
         }
     }
 
     public void Remove(Star objectToRemove)
     {
-        if (ContainsLocation(new Vector2(objectToRemove.transform.position.x, objectToRemove.transform.position.z)))
+        if (ContainsLocation(objectToRemove.transform.position))
         {
             bodiesStored.Remove(objectToRemove);
             for (int i = 0; i < 4; i++)
@@ -122,14 +131,23 @@ public class TreeNode
             }
         }
     }
-    public bool ContainsLocation(Vector2 location)
+    public bool ContainsLocation(Vector3 location)
     {
-        return bounds.Contains(location);
+        float minX = position.x - bound;
+        float minY = position.y - bound;
+        float minZ = position.z - bound;
+        float maxX = position.x + bound;
+        float maxY = position.y + bound;
+        float maxZ = position.z + bound;
+
+        return (location.x >= minX && location.x <= maxX &&
+                location.y >= minY && location.y <= maxY &&
+                location.z >= minZ && location.z <= maxZ);
     }
 
-    private int GetIndexToInsertObject(Vector2 location)
+    private int GetIndexToInsertObject(Vector3 location)
     {
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < 8; i++)
         {
             if (childs[i].ContainsLocation(location))
             {
@@ -140,10 +158,10 @@ public class TreeNode
     }
     public void DrawDebug()
     {
-        Gizmos.DrawLine(new Vector3(bounds.x, 0, bounds.y), new Vector3(bounds.x, 0, bounds.y + bounds.height));
-        Gizmos.DrawLine(new Vector3(bounds.x, 0, bounds.y), new Vector3(bounds.x + bounds.width, 0, bounds.y));
-        Gizmos.DrawLine(new Vector3(bounds.x + bounds.width, 0, bounds.y), new Vector3(bounds.x + bounds.width, 0, bounds.y + bounds.height));
-        Gizmos.DrawLine(new Vector3(bounds.x, 0, bounds.y + bounds.height), new Vector3(bounds.x + bounds.width, 0, bounds.y + bounds.height));
+       Vector3 cubeSize = new Vector3(bound * 2, bound * 2, bound * 2);
+Gizmos.DrawWireCube(position, cubeSize);
+
+
         if (childs[0] != null)
         {
             for (int i = 0; i < childs.Length; i++)
@@ -167,7 +185,7 @@ public class TreeNode
             //distance star-center of mass
             float r = Vector3.Distance(CenterOfMass, star.transform.position);
             //height of node
-            float d = bounds.height;
+            float d = bound;
             //d/r < teta
             if (d / r < teta)
             {
@@ -175,7 +193,7 @@ public class TreeNode
             }
             else
             {
-                for (int i = 0; i < 4; i++)
+                for (int i = 0; i < 8; i++)
                 {
                     if (childs[i] != null)
                         acceleration += childs[i].CalculateTreeForce(star, teta);
