@@ -27,7 +27,7 @@ public class GalaxySimulationBH : MonoBehaviour
         float starInitialVelocity = UiValues["StarInitialVelocity"];
         int starCount = (int)UiValues["StarCount"];
 
-        root = new TreeNode(50, new Vector3(-galaxyRadius * 3 / 2f, -galaxyRadius * 3 / 2f), galaxyRadius * 3f);
+        root = new TreeNode(50, Vector3.zero, galaxyRadius*2f);
         List<Star> stars = new List<Star>();
 
         for (int i = 0; i < starCount; i++)
@@ -72,8 +72,8 @@ public class GalaxySimulationBH : MonoBehaviour
                 setStarColor(star);
             }
             root.ComputeMassDistribution(UiValues["BlackHoleMass"]);
-           //   center_galaxy();
-            displayInfoCount();
+             center_galaxy();
+           // displayInfoCount();
 
         }
     }
