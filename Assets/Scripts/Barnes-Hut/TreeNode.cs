@@ -49,13 +49,14 @@ public class TreeNode
                 float y = position.y;
                 float z = position.z;
 
-                childs[0] = new TreeNode(maxObjectCount, new Vector3(x + subBound, y, z), subBound);
-                childs[1] = new TreeNode(maxObjectCount, new Vector3(x, y, z + subBound), subBound);
-                childs[2] = new TreeNode(maxObjectCount, new Vector3(x, y + subBound, z), subBound);
-                childs[3] = new TreeNode(maxObjectCount, new Vector3(x + subBound, y + subBound, z), subBound);
-                childs[4] = new TreeNode(maxObjectCount, new Vector3(x + subBound, y, z + subBound), subBound);
-                childs[5] = new TreeNode(maxObjectCount, new Vector3(x, y, z + subBound), subBound);
-                childs[6] = new TreeNode(maxObjectCount, new Vector3(x, y + subBound, z + subBound), subBound);
+                childs[0] = new TreeNode(maxObjectCount, new Vector3(x + subBound, y-subBound, z-subBound), subBound);
+                childs[1] = new TreeNode(maxObjectCount, new Vector3(x-subBound, y-subBound, z + subBound), subBound);
+                childs[2] = new TreeNode(maxObjectCount, new Vector3(x-subBound, y + subBound, z-subBound), subBound);
+                childs[3] = new TreeNode(maxObjectCount, new Vector3(x + subBound, y + subBound, z-subBound), subBound);
+
+                childs[4] = new TreeNode(maxObjectCount, new Vector3(x + subBound, y-subBound, z + subBound), subBound);
+                childs[5] = new TreeNode(maxObjectCount, new Vector3(x-subBound, y-subBound, z + subBound), subBound);
+                childs[6] = new TreeNode(maxObjectCount, new Vector3(x-subBound, y + subBound, z + subBound), subBound);
                 childs[7] = new TreeNode(maxObjectCount, new Vector3(x + subBound, y + subBound, z + subBound), subBound);
             }
 
