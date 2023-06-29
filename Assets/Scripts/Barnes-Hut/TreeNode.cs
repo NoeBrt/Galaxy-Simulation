@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Threading.Tasks;
 
 public class TreeNode
 {
@@ -49,16 +50,17 @@ public class TreeNode
                 float y = position.y;
                 float z = position.z;
 
-                childs[0] = new TreeNode(maxObjectCount, new Vector3(x + subBound, y-subBound, z-subBound), subBound);
-                childs[1] = new TreeNode(maxObjectCount, new Vector3(x-subBound, y-subBound, z + subBound), subBound);
-                childs[2] = new TreeNode(maxObjectCount, new Vector3(x-subBound, y + subBound, z-subBound), subBound);
-                childs[3] = new TreeNode(maxObjectCount, new Vector3(x + subBound, y + subBound, z-subBound), subBound);
+                childs[0] = new TreeNode(maxObjectCount, new Vector3(x + subBound, y - subBound, z - subBound), subBound);
+                childs[1] = new TreeNode(maxObjectCount, new Vector3(x - subBound, y - subBound, z + subBound), subBound);
+                childs[2] = new TreeNode(maxObjectCount, new Vector3(x - subBound, y + subBound, z - subBound), subBound);
+                childs[3] = new TreeNode(maxObjectCount, new Vector3(x + subBound, y + subBound, z - subBound), subBound);
 
-                childs[4] = new TreeNode(maxObjectCount, new Vector3(x + subBound, y-subBound, z + subBound), subBound);
-                childs[5] = new TreeNode(maxObjectCount, new Vector3(x-subBound, y-subBound, z + subBound), subBound);
-                childs[6] = new TreeNode(maxObjectCount, new Vector3(x-subBound, y + subBound, z + subBound), subBound);
+                childs[4] = new TreeNode(maxObjectCount, new Vector3(x + subBound, y - subBound, z + subBound), subBound);
+                childs[5] = new TreeNode(maxObjectCount, new Vector3(x - subBound, y - subBound, z + subBound), subBound);
+                childs[6] = new TreeNode(maxObjectCount, new Vector3(x - subBound, y + subBound, z + subBound), subBound);
                 childs[7] = new TreeNode(maxObjectCount, new Vector3(x + subBound, y + subBound, z + subBound), subBound);
             }
+            //List<Task> insertTasks = new List<Task>();
 
             for (int i = bodiesStored.Count - 1; i >= 0; i--)
             {
@@ -66,10 +68,13 @@ public class TreeNode
                 int indexChild = GetIndexToInsertObject(storedBody.transform.position);
                 if (indexChild > -1)
                 {
+                    //Task insertTask = Task.Run(() => 
                     childs[indexChild].InsertToNode(storedBody);
+                    //  insertTasks.Add(insertTask);
                     bodiesStored.RemoveAt(i);
                 }
             }
+            //Task.WaitAll(insertTasks.ToArray());
         }
     }
 
@@ -102,19 +107,20 @@ public class TreeNode
             }
             Mass = bodiesStored.Count;
 
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < 8; i++)
             {
                 if (childs[i] != null)
                 {
                     childs[i].ComputeMassDistribution(BlackHoleMass);
+
                     Mass += childs[i].Mass;
                     CenterOfMass += childs[i].Mass * childs[i].CenterOfMass;
+
                 }
             }
             Mass += BlackHoleMass;
             CenterOfMass += Vector3.zero * BlackHoleMass;
             CenterOfMass /= Mass;
-
         }
 
 
@@ -159,8 +165,8 @@ public class TreeNode
     }
     public void DrawDebug()
     {
-       Vector3 cubeSize = new Vector3(bound * 2, bound * 2, bound * 2);
-Gizmos.DrawWireCube(position, cubeSize);
+        Vector3 cubeSize = new Vector3(bound * 2, bound * 2, bound * 2);
+        Gizmos.DrawWireCube(position, cubeSize);
 
 
         if (childs[0] != null)
