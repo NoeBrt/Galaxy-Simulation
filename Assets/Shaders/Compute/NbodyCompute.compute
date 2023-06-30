@@ -1,0 +1,49 @@
+// Each #kernel tells which function to compile; you can have many kernels
+#pragma kernel UpdateStars
+
+// Create a RenderTexture with enableRandomWrite flag and set it
+// with cs.SetTexture
+struct Star{
+    float3 position;
+    float3 velocity;
+};
+
+uint starCount;
+float deltaTime;
+float interactionRate;
+float smoothingLenght;
+
+
+RWStructuredBuffer<Star> star;
+
+float3 norm_2(float3 vect){
+    return pow(vect.x,2)+pow(vect.y,2)+pow(vect.z,2);
+}
+
+float3 compute_interaction( float3 position_1,float3 position_2,float smoothingLenght){
+   float3 vect= position_2-position_1;
+    return normalize(vect)/(norm_2(vect)+smoothingLenght)/interactionRate;
+}
+
+
+[numthreads(4,1,1)]
+void UpdateStars (uint3 id : SV_DispatchThreadID)
+{
+    float3 position = star[id.x].position;
+    float3 velocity = star[id.x].velocity;
+     float3 acceleration = float3(0,0,0);
+     [loop]
+    for (uint i =0;i<starCount;i++){
+        if (i==id.x) continue;
+
+            acceleration+= compute_interaction(position,star[i].position,smoothingLenght);
+                }
+                	GroupMemoryBarrierWithGroupSync();
+
+        velocity += acceleration * deltaTime;
+        position += velocity;
+        star[id.x].position = position;
+        star[id.x].velocity = velocity;
+}
+
+
