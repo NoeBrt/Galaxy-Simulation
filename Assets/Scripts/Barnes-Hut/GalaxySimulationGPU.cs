@@ -38,9 +38,10 @@ public class GalaxySimulationGPU : MonoBehaviour
         float starInitialVelocity = UiValues["StarInitialVelocity"];
         starCount = (int)UiValues["StarCount"];
         float smoothingLenght = UiValues["SmoothingLenght"];
+        float blackHoleMass = UiValues["BlackHoleMass"];
         float interactionRate = UiValues["InteractionRate"];
         SetupShader(starCount);
-        InitStarsAttribute(starCount, Time.deltaTime, smoothingLenght, interactionRate);
+        InitStarsAttribute(starCount, Time.deltaTime, smoothingLenght, interactionRate,blackHoleMass);
         InitStarsPos(starCount, galaxyRadius, galaxyThickness, starInitialVelocity);
         simulationStarted = true;
         Debug.Log(galaxy.Count);
@@ -58,11 +59,11 @@ public class GalaxySimulationGPU : MonoBehaviour
         {
 
             RunComputeShader();
-             var data = new Particule[starCount];
-                starsBuffer.GetData(data);
+            var data = new Particule[starCount];
+            starsBuffer.GetData(data);
             for (int i = 0; i < starCount; i++)
             {
-               
+
                 starsGm[i].transform.position = data[i].position;
                 starsGm[i].GetComponent<Star>().CameraView();
             }
@@ -89,12 +90,13 @@ public class GalaxySimulationGPU : MonoBehaviour
 
     }
 
-    public void InitStarsAttribute(int n, float deltaTime, float smoothingLenght, float interactionRate)
+    public void InitStarsAttribute(int n, float deltaTime, float smoothingLenght, float interactionRate,float blackHoleMass)
     {
         computeShader.SetInt("starCount", n);
         computeShader.SetFloat("deltaTime", deltaTime);
         computeShader.SetFloat("smoothingLenght", smoothingLenght);
         computeShader.SetFloat("interactionRate", interactionRate);
+        computeShader.SetFloat("blackHoleMass", blackHoleMass);
 
 
     }
@@ -108,7 +110,7 @@ public class GalaxySimulationGPU : MonoBehaviour
             Particule p = new Particule();
             p.position = insideCylinder(diameter, thickness);
             Debug.Log(p.position);
-            p.velocity += DiscVelocity(starInitialVelocity, p);
+            p.velocity = DiscVelocity(starInitialVelocity, p);
             galaxy.Add(p);
             starsGm.Add(Instantiate(starPrefab, p.position, Quaternion.identity));
 
@@ -137,19 +139,19 @@ public class GalaxySimulationGPU : MonoBehaviour
 
     void OnRenderObject()
     {
-        if (render)
-        {
-            renderMaterial.SetFloat("_Size", particleSize);
-            renderMaterial.SetPass(0);
-            renderMaterial.SetBuffer("bodies", starsBuffer);
-            Graphics.DrawProceduralNow(MeshTopology.Points, starCount);
-        }
+        /*   if (render)
+           {
+               renderMaterial.SetFloat("_Size", particleSize);
+               renderMaterial.SetPass(0);
+               renderMaterial.SetBuffer("bodies", starsBuffer);
+               Graphics.DrawProceduralNow(MeshTopology.Points, starCount);
+           }*/
     }
 
     public void Delete()
     {
 
-        if (starsBuffer!=null)
+        if (starsBuffer != null)
         {
             starsGm.ForEach(star => Destroy(star));
             starsGm.Clear();

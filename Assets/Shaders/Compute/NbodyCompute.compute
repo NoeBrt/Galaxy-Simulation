@@ -12,6 +12,7 @@ uint starCount;
 float deltaTime;
 float interactionRate;
 float smoothingLenght;
+float blackHoleMass;
 
 
 RWStructuredBuffer<Star> star;
@@ -21,29 +22,30 @@ float3 norm_2(float3 vect){
 }
 
 float3 compute_interaction( float3 position_1,float3 position_2,float smoothingLenght){
-   float3 vect= position_2-position_1;
-    return normalize(vect)/(norm_2(vect)+smoothingLenght)/interactionRate;
+    float3 vect= position_2-position_1;
+    return normalize(vect)/(norm_2(vect)+smoothingLenght);
 }
 
 
-[numthreads(4,1,1)]
+[numthreads(32,1,1)]
 void UpdateStars (uint3 id : SV_DispatchThreadID)
 {
     float3 position = star[id.x].position;
     float3 velocity = star[id.x].velocity;
-     float3 acceleration = float3(0,0,0);
-     [loop]
-    for (uint i =0;i<starCount;i++){
+    float3 acceleration = float3(0,0,0);
+    [loop]
+    for (uint i =0;i<interactionRate*starCount;i++){
         if (i==id.x) continue;
 
-            acceleration+= compute_interaction(position,star[i].position,smoothingLenght);
-                }
-                	GroupMemoryBarrierWithGroupSync();
+        acceleration+= compute_interaction(position,star[i].position,smoothingLenght)/interactionRate;
+    }
+    acceleration +=compute_interaction(position,float3(0,0,0),smoothingLenght)*blackHoleMass;
+    GroupMemoryBarrierWithGroupSync();
 
-        velocity += acceleration * deltaTime;
-        position += velocity;
-        star[id.x].position = position;
-        star[id.x].velocity = velocity;
+    velocity += acceleration * deltaTime;
+    position += velocity* deltaTime;
+    star[id.x].position = position;
+    star[id.x].velocity = velocity;
 }
 
 
