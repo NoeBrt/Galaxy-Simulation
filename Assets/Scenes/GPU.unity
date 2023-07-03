@@ -924,9 +924,9 @@ MonoBehaviour:
   m_FillRect: {fileID: 554518985}
   m_HandleRect: {fileID: 2059605460}
   m_Direction: 0
-  m_MinValue: 1
-  m_MaxValue: 100
-  m_WholeNumbers: 1
+  m_MinValue: 0
+  m_MaxValue: 1
+  m_WholeNumbers: 0
   m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1816,6 +1816,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
@@ -2928,6 +2929,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
@@ -4643,7 +4645,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1198644640}
   m_Direction: 0
   m_MinValue: 10
-  m_MaxValue: 5000
+  m_MaxValue: 20000
   m_WholeNumbers: 1
   m_Value: 10
   m_OnValueChanged:
@@ -6828,7 +6830,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1151083530}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 500
+  m_MaxValue: 10000
   m_WholeNumbers: 1
   m_Value: 0
   m_OnValueChanged:
