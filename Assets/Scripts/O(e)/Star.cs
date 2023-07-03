@@ -29,7 +29,7 @@ public class Star : MonoBehaviour
     {
         transform.rotation = Camera.main.transform.rotation;
         CameraMovement cameraMovement = Camera.main.GetComponent<CameraMovement>();
-        transform.localScale = new Vector3(cameraMovement.DistanceToTarget / 450f, cameraMovement.DistanceToTarget / 450f);
+        //transform.localScale = new Vector3(cameraMovement.DistanceToTarget / 200f, cameraMovement.DistanceToTarget /200f);
     }
 
 

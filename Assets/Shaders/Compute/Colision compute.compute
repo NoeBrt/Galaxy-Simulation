@@ -1,0 +1,69 @@
+// Each #kernel tells which function to compile; you can have many kernels
+#pragma kernel UpdateStar
+
+// Create a RenderTexture with enableRandomWrite flag and set it
+// with cs.SetTexture
+struct Star{
+    float3 position;
+    float3 velocity;
+    float radius;
+};
+
+uint starCount;
+float deltaTime;
+
+float borderSize;
+
+
+
+RWStructuredBuffer<Star> star;
+
+float3 norm_2(float3 vect){
+    return pow(vect.x,2)+pow(vect.y,2)+pow(vect.z,2);
+}
+
+bool collideCircle(float3 a, float3 b, float radius)
+    {
+        float distance = norm_2(a - b);
+        float rad = radius*4;
+        return distance <= rad;
+
+
+    }
+
+    bool collideBorder(float3 a,float radius,float borderSize)
+    {
+        return (a.x+radius>=borderSize || a.x-radius<=-borderSize || a.y+radius>=borderSize || a.y-radius<=-borderSize || a.z+radius>=borderSize || a.z-radius<=-borderSize);
+    }
+
+[numthreads(32,1,1)]
+void UpdateStar (uint3 id : SV_DispatchThreadID)
+{
+    float3 position = star[id.x].position;
+    float3 velocity = star[id.x].velocity;
+    [loop]
+    for (uint i =0;i<starCount;i++){
+        if (i==id.x) continue;
+        if(collideCircle(position,star[i].position,star[i].radius)){
+            float3 v1= -velocity;
+            float3 v2= -star[i].velocity;
+            velocity=v1;
+            star[i].velocity=v2;
+
+        }
+        if(collideBorder(position,star[i].radius,borderSize)){
+            float3 v1= -velocity;
+            velocity=v1;
+        }
+
+        //acceleration+= compute_interaction(position,star[i].position,smoothingLenght)/interactionRate;
+    }
+    //acceleration +=compute_interaction(position,float3(0,0,0),smoothingLenght)*blackHoleMass;
+    GroupMemoryBarrierWithGroupSync();
+
+    position += velocity* deltaTime;
+    star[id.x].position = position;
+    star[id.x].velocity = velocity;
+}
+ 
+
