@@ -2275,8 +2275,9 @@ MonoBehaviour:
   - {fileID: 2128957515}
   - {fileID: 288606309}
   computeShader: {fileID: 7200000, guid: 35ab4d783fbb5004a83c3237bc15fa7c, type: 3}
+  InitComputeShader: {fileID: 7200000, guid: 2a0f5c4e3fee0924089767cddddd730f, type: 3}
   starPrefab: {fileID: 6951729407357512326, guid: 97da25212c936aa4fa915d02a07eca0c, type: 3}
-  renderMaterial: {fileID: 2100000, guid: 11c281b7c487bc544b4afcfc83b69ea9, type: 2}
+  renderMaterial: {fileID: 2100000, guid: 9b0bb27c75f1712478f5e37817b078a9, type: 2}
   render: 1
   particleSize: 0.01
 --- !u!1 &795290070
@@ -2573,7 +2574,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -67.899994, y: -38.899963}
+  m_AnchoredPosition: {x: -67.899994, y: 0}
   m_SizeDelta: {x: 38.6939, y: 11.6316}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &847086468
@@ -4247,7 +4248,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -67.900024, y: -38.9}
+  m_AnchoredPosition: {x: -67.900024, y: 0}
   m_SizeDelta: {x: 38.6939, y: 11.6316}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1278057659
@@ -5186,7 +5187,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5914724508403755040, guid: 7d45516b021eed14c8b1082f5cfffaf4, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -78
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5914724508403755040, guid: 7d45516b021eed14c8b1082f5cfffaf4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -6102,7 +6103,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!64 &1925189805
 MeshCollider:
   m_ObjectHideFlags: 0

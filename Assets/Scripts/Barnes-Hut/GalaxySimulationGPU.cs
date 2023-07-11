@@ -12,6 +12,7 @@ public class GalaxySimulationGPU : MonoBehaviour
     //[SerializeField] public List<Star> Galaxy { get; set; }
     bool simulationStarted = false;
     [SerializeField] ComputeShader computeShader;
+
     private int kernel;
     [SerializeField]
     private ComputeBuffer starsBuffer;
@@ -41,9 +42,10 @@ public class GalaxySimulationGPU : MonoBehaviour
         float blackHoleMass = UiValues["BlackHoleMass"];
         float interactionRate = UiValues["InteractionRate"];
         SetupShader(starCount);
-        InitStarsAttribute(starCount, Time.deltaTime, smoothingLenght, interactionRate,blackHoleMass);
+        InitStarsAttribute(starCount, Time.deltaTime, smoothingLenght, interactionRate, blackHoleMass);
         InitStarsPos(starCount, galaxyRadius, galaxyThickness, starInitialVelocity);
         simulationStarted = true;
+        Debug.Log(galaxy.Count);
 
 
     }
@@ -84,12 +86,12 @@ public class GalaxySimulationGPU : MonoBehaviour
             Debug.Log("kernel not found");
         }
         int bufferStride = sizeof(float) * 6;
-        starsBuffer = new ComputeBuffer(starCount*80, bufferStride);
+        starsBuffer = new ComputeBuffer(starCount, bufferStride);
         computeShader.SetBuffer(kernel, "star", starsBuffer);
 
     }
 
-    public void InitStarsAttribute(int n, float deltaTime, float smoothingLenght, float interactionRate,float blackHoleMass)
+    public void InitStarsAttribute(int n, float deltaTime, float smoothingLenght, float interactionRate, float blackHoleMass)
     {
         computeShader.SetInt("starCount", n);
         computeShader.SetFloat("deltaTime", deltaTime);
@@ -102,23 +104,41 @@ public class GalaxySimulationGPU : MonoBehaviour
 
     public void InitStarsPos(int n, float diameter, float thickness, float starInitialVelocity)
     {
-         
-         var nd=n*80; //darkMatter
-        galaxy = new List<Particule>();
-        starsGm = new List<GameObject>();
-        for (int i = 0; i < nd; i++)
-        {
-            Particule p = new Particule();
-            p.position = insideCylinder(diameter, thickness);
-            Debug.Log(p.position);
-            p.velocity = DiscVelocity(starInitialVelocity, p);
-            galaxy.Add(p);
-            if(i<=n){
-            starsGm.Add(Instantiate(starPrefab,p.position, Quaternion.identity));
-            }
-        }
-        starsBuffer.SetData(galaxy);
-        galaxy=null;
+        int InitKernel = 0;
+    try
+    {
+        InitKernel = computeShader.FindKernel("InitStars");
+    }
+    catch
+    {
+        Debug.Log("InitKernel not found");
+    }
+     int bufferStride = sizeof(float) * 6;
+   var Buffer = new ComputeBuffer(starCount, bufferStride);
+
+    galaxy = new List<Particule>();
+    starsGm = new List<GameObject>();
+    var data = new Particule[starCount];
+    
+    Buffer.SetData(galaxy);
+    
+    // Set parameters for InitStars Kernel
+    computeShader.SetBuffer(InitKernel, "star", Buffer);
+    computeShader.SetFloat("diameter", diameter);
+    computeShader.SetFloat("thickness", thickness);
+    computeShader.SetFloat("initVelocity", starInitialVelocity);
+
+    // Dispatch the compute shader
+    computeShader.Dispatch(InitKernel, starCount , 1, 1);
+    
+    Buffer.GetData(data);
+    Debug.Log(data[0].position);
+    for (int i = 0; i < n; i++)
+    {
+        starsGm.Add(Instantiate(starPrefab, data[i].position, Quaternion.identity));
+    }
+    Buffer.Release();
+    starsBuffer.SetData(data);
     }
 
 
