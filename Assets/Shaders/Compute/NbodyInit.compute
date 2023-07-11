@@ -1,0 +1,68 @@
+// Each #kernel tells which function to compile; you can have many kernel
+#pragma kernel InitStars
+
+
+// Create a RenderTexture with enableRandomWrite flag and set it
+// with cs.SetTexture
+struct Star1{
+    float3 position;
+    float3 velocity;
+};
+
+uint starCount1;
+
+
+
+RWStructuredBuffer<Star1> star1;
+
+float Random (uint seed, uint index)
+{
+    seed += index;
+    seed ^= 2747636419u;
+    seed *= 2654435769u;
+    seed ^= seed >> 16;
+    seed *= 2654435769u;
+    seed ^= seed >> 16;
+    seed *= 2654435769u;
+    return float(seed) / 4294967296.0;
+}
+
+
+
+float3 insideCylinder(float d, float t, uint seed) 
+{
+    // Generate random point inside a cylinder
+    float angle = 2.0 * PI * Random(seed, 0); // 2*PI*rand
+    float radius = d * sqrt(Random(seed, 1));
+    float height = t * (Random(seed, 2) - 0.5f);
+
+    float3 pos = float3(radius * cos(angle), height, radius * sin(angle));
+    return pos;
+}
+
+float3 discVelocity(float v, float3 p, uint seed) 
+{
+    float3 rotatedPosition= float3(0,0,0);
+    rotatedPosition.x = (p.x * cos(90.0)) - (p.z * sin(90.0));
+    rotatedPosition.z = (p.z * cos(90.0)) + (p.x * sin(90.0));
+    rotatedPosition.y = (Random(seed, 3) * 2.0) - 1.0; // Range(-1, 1)
+
+    float3 velocity = normalize(rotatedPosition) * v;
+    return velocity;
+}
+
+
+[numthreads(32,1,1)]
+void InitStars (uint3 id : SV_DispatchThreadID)
+{
+    float3 position = insideCylinder(100, 10, id.x);
+    float3 velocity = discVelocity(10, position, id.x);
+    star1[id.x].position = position;
+    star1[id.x].velocity = velocity;
+}
+
+
+
+
+
+
