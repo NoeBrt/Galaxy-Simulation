@@ -31,7 +31,7 @@ float3 norm_2(float3 vect){
 
 float3 compute_interaction( float3 position_1,float3 position_2,float smoothingLenght){
     float3 vect= position_2-position_1;
-    return normalize(vect)/(norm_2(vect)+smoothingLenght);
+    return 9.81*normalize(vect)/(norm_2(vect)+smoothingLenght);
 }
 
 

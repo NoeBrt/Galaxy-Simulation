@@ -109,7 +109,9 @@ public class GalaxySimulationGPU : MonoBehaviour
 
     public void InitStarsPos(int n, float diameter, float thickness, float starInitialVelocity)
     {
-        /*   int InitKernel = 0;
+
+        
+    /*       int InitKernel = 0;
        try
        {
            InitKernel = computeShader.FindKernel("InitStars");
@@ -137,14 +139,14 @@ public class GalaxySimulationGPU : MonoBehaviour
        computeShader.Dispatch(InitKernel, starCount/128+1 , 1, 1);
 
        Buffer.GetData(data);
-       Debug.Log(data[0].position);
-       for (int i = 0; i < n; i++)
+       Debug.Log(data[0].position);*/
+    /*   for (int i = 0; i < n; i++)
        {
            starsGm.Add(Instantiate(starPrefab, data[i].position, Quaternion.identity));
        }
        Buffer.Release();
-       starsBuffer.SetData(data);
-       */
+       starsBuffer.SetData(data);*/
+       
         var data = new Particule[starCount];
         galaxy = new List<Particule>();
         starsGm = new List<GameObject>();
