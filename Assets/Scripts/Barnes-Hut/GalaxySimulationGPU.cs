@@ -72,7 +72,7 @@ public class GalaxySimulationGPU : MonoBehaviour
     }
     void RunComputeShader()
     {
-        computeShader.Dispatch(kernel, starCount, 1, 1);
+        computeShader.Dispatch(kernel, starCount/64+1, 1, 1);
     }
 
     public void SetupShader(int n)
@@ -129,7 +129,7 @@ public class GalaxySimulationGPU : MonoBehaviour
     computeShader.SetFloat("initVelocity", starInitialVelocity);
 
     // Dispatch the compute shader
-    computeShader.Dispatch(InitKernel, starCount , 1, 1);
+    computeShader.Dispatch(InitKernel, starCount/64+1 , 1, 1);
     
     Buffer.GetData(data);
     Debug.Log(data[0].position);
@@ -149,6 +149,7 @@ public class GalaxySimulationGPU : MonoBehaviour
 
         return new Vector3(discPoint.x, yPosition, discPoint.y);
     }
+    
 
     private Vector3 DiscVelocity(float starInitialVelocity, Particule star)
     {
