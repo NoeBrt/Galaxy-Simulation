@@ -35,7 +35,7 @@ float3 compute_interaction( float3 position_1,float3 position_2,float smoothingL
 }
 
 
-[numthreads(64,1,1)]
+[numthreads(128,1,1)]
 void UpdateStars (uint3 id : SV_DispatchThreadID)
 {
     float3 position = star[id.x].position;
@@ -95,7 +95,7 @@ float3 discVelocity(float v, float3 p, uint seed)
 }
 
 
-[numthreads(64,1,1)]
+[numthreads(128,1,1)]
 void InitStars (uint3 id : SV_DispatchThreadID)
 {
     float3 position = insideCylinder(diameter, thickness, id.x);
