@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+namespace Simulation
+{
+
 public class SimulationParameter : MonoBehaviour
 {
     public enum SimulationType
@@ -10,7 +13,7 @@ public class SimulationParameter : MonoBehaviour
         Universe,
         Collision
     }
-    private float bodiesCount;
+    private int bodiesCount;
 
     private float radius;
     private float thickness; //utile seulement pour le type galaxies
@@ -88,11 +91,11 @@ public class SimulationParameter : MonoBehaviour
 
     public float BodiesCount
     {
-        get { return bodiesCount; }
+        get { return (int) bodiesCount; }
         set
         {
-            bodiesCount = value;
-            GlobalManager.Instance.UIManager.BodiesCountSlider.value = value;
+            bodiesCount = (int)value;
+            GlobalManager.Instance.UIManager.BodiesCountSlider.value = bodiesCount;
         }
     }
     public float TimeStep
@@ -106,9 +109,7 @@ public class SimulationParameter : MonoBehaviour
     }
 
 
-
-
-    public SimulationType Type { get; set; }
+    public SimulationType simulationType { get; set; }
 
 
     public void Init()
@@ -121,17 +122,18 @@ public class SimulationParameter : MonoBehaviour
         BlackHoleMass = GlobalManager.Instance.UIManager.BlackHoleMassSlider.value;
         InteractionRate = GlobalManager.Instance.UIManager.InteractionRateSlider.value;
         // TimeStep= GlobalManager.Instance.UIManager.TimeStepSlider.value;
-        Type = GlobalManager.Instance.UIManager.TypeDropdown.value == 0 ? SimulationType.Galaxy : GlobalManager.Instance.UIManager.TypeDropdown.value == 1 ? SimulationType.Universe : SimulationType.Collision;
+        simulationType = GlobalManager.Instance.UIManager.TypeDropdown.value == 0 ? SimulationType.Galaxy : GlobalManager.Instance.UIManager.TypeDropdown.value == 1 ? SimulationType.Universe : SimulationType.Collision;
     }
 
 
     public void setDropDownType()
     {
-        Type = GlobalManager.Instance.UIManager.TypeDropdown.value == 0 ? SimulationType.Galaxy : GlobalManager.Instance.UIManager.TypeDropdown.value == 1 ? SimulationType.Collision : SimulationType.Universe;
+        simulationType = GlobalManager.Instance.UIManager.TypeDropdown.value == 0 ? SimulationType.Galaxy : GlobalManager.Instance.UIManager.TypeDropdown.value == 1 ? SimulationType.Collision : SimulationType.Universe;
 
     }
 
 
-
+    
+}
 
 }

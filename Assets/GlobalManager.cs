@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+namespace Simulation
+{
+
 public class GlobalManager : MonoBehaviour
 {
     public static GlobalManager Instance { get; private set; }
@@ -34,4 +37,5 @@ public class GlobalManager : MonoBehaviour
     }
 
     // Autres méthodes liées à la gestion du jeu
+}
 }
