@@ -29,7 +29,9 @@ public class Star : MonoBehaviour
     {
         transform.rotation = Camera.main.transform.rotation;
         CameraMovement cameraMovement = Camera.main.GetComponent<CameraMovement>();
-        transform.localScale = new Vector3(cameraMovement.DistanceToTarget / 450f, cameraMovement.DistanceToTarget / 450f);
+        transform.localScale = new Vector3(cameraMovement.DistanceToTarget / 800f, cameraMovement.DistanceToTarget / 800f);
+        //orange if velocity is low and blue if velocity is high progressively
+        
     }
 
 
