@@ -44,7 +44,7 @@ Shader "Custom/StarShader"
                 // Here, the color is set to white, but you can change it as you like.
                 
                float colorVal = saturate(i.speed / 30.0);
-             return fixed4(colorVal, 0.0, 1-colorVal, 1.0);
+             return fixed4(colorVal, 0.1, 1-colorVal, 1.0);
                 //return fixed4(0.0, 0.20, 1.0, 1.0);
             }
             ENDCG
