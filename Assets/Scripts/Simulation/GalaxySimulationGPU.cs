@@ -24,17 +24,17 @@ namespace Simulation
         [SerializeField]
         private Material renderMaterial;
 
-        [SerializeField]
-        private bool render = true;
+        private bool render = false;
         [SerializeField]
         private float particleSize = 0.01f;
+        SimulationParameter simulationParameter;
 
         // Start is called before the first frame update
         public void Spawn()
         {
             Delete();
 
-            var simulationParameter = GlobalManager.Instance.SimulationParameter;
+            simulationParameter = GlobalManager.Instance.SimulationParameter;
 
 
             float galaxyRadius = simulationParameter.Radius;
@@ -48,6 +48,7 @@ namespace Simulation
             SetupShader(starCount);
             InitStarsAttribute(starCount, Time.deltaTime, smoothingLenght, interactionRate, blackHoleMass);
             InitStarsPos(simulationParameter);
+            renderMaterial.SetInt("simulationType", (int)simulationParameter.simulationType);
             simulationStarted = true;
             render = true;
 
@@ -103,7 +104,6 @@ namespace Simulation
             if (render)
             {
                 renderMaterial.SetBuffer("starBuffer", starsBuffer);
-
                 // Render the stars
                 renderMaterial.SetPass(0);
                 Graphics.DrawProceduralNow(MeshTopology.Points, starCount);

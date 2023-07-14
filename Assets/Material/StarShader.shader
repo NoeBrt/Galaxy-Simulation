@@ -16,6 +16,7 @@ Shader "Custom/StarShader"
                 float4 vertex : POSITION;
                 
             };
+            uniform int simulationType;
 
             struct Star{
                 float3 position;
@@ -41,11 +42,21 @@ Shader "Custom/StarShader"
 
             fixed4 frag (v2f i) : SV_Target
             {
-                // Here, the color is set to white, but you can change it as you like.
-                
-               float colorVal = saturate(i.speed / 30.0);
-             return fixed4(colorVal, 0.1, 1-colorVal, 1.0);
-                //return fixed4(0.0, 0.20, 1.0, 1.0);
+
+                float4 color;
+    
+                if (simulationType == 0){
+                    color = lerp(float4(0.0, 0.0, 1.0, 1.0),float4(1.0, 1.0, 1.0, 1.0),  saturate(i.speed / 200.0));
+
+                }else if(simulationType==1){
+                    color = lerp(float4(0.0, 0.0, 1.0, 1.0),float4(1.0, 0.05, 0.0, 1.0),  saturate(i.speed / 30.0));
+                }else if(simulationType==2){
+                color = lerp(float4(0.0, 0.0, 1.0, 1.0),float4(1.0, 0.5, 0.0, 1.0),  saturate(i.speed / 30.0));
+                }
+           
+                  
+                    return color;
+           
             }
             ENDCG
         }
