@@ -1,4 +1,4 @@
-# Galaxy Simulation with Barnes-Hut Algorithm
+# Galaxy Simulation with GPU computing and Barnes-Hut
 
 This project is a simulation of a galaxy using the Barnes-Hut algorithm. Users can create and customize a galaxy by adjusting parameters such as the number of stars, galaxy size, galaxy width, star velocities around the center, theta value, and smoothing length for limiting star acceleration. Additionally, users can add a black hole to the center of the galaxy and adjust its mass. The simulation also provides interactive camera controls, allowing users to rotate the camera around the galaxy using the mouse and zoom in/out using the mouse wheel.
 
