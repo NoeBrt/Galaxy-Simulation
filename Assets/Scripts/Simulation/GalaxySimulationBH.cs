@@ -14,40 +14,36 @@ public class GalaxySimulationBH : MonoBehaviour
     //[SerializeField] public List<Star> Galaxy { get; set; }
     public Galaxy galaxy { get; set; }
     bool simulationStarted = false;
-    [SerializeField] Color right;
-    [SerializeField] Color left;
-
-
 
     // Start is called before the first frame update
     public void Spawn()
     {
         Delete();
-
         UiValues = new Dictionary<string, float>();
         sliders.ForEach(slider => UiValues.Add(slider.name, slider.value));
 
-        root = new TreeNode(50, new Rect(-UiValues["GalaxyRadius"] * 3 / 2f, -UiValues["GalaxyRadius"] * 3 / 2f, UiValues["GalaxyRadius"] * 3, UiValues["GalaxyRadius"] * 3));
+        float galaxyRadius = UiValues["GalaxyRadius"];
+        float galaxyThickness = UiValues["GalaxyThickness"];
+        float starInitialVelocity = UiValues["StarInitialVelocity"];
+        int starCount = (int)UiValues["StarCount"];
 
+        root = new TreeNode(50, Vector3.zero, galaxyRadius*2f);
         List<Star> stars = new List<Star>();
-        for (int i = 0; i < UiValues["StarCount"]; i++)
+
+        for (int i = 0; i < starCount; i++)
         {
-            float angle = Random.Range(0f, 360f);
-            Vector3 pos = DiscPos(angle, Random.Range(-UiValues["GalaxyThickness"], UiValues["GalaxyThickness"]), Random.Range(-UiValues["GalaxyRadius"], UiValues["GalaxyRadius"]));
-            stars.Add(Instantiate(starPrefab, pos, starPrefab.transform.rotation, transform));
-            if (pos.x > UiValues["GalaxyThickness"] / 2f)
-                stars[i].GetComponent<SpriteRenderer>().color = right;
-            else
-                stars[i].GetComponent<SpriteRenderer>().color = left;
+            Vector3 randomPosition = DiscPos(Random.Range(0f, 360f), Random.Range(-galaxyThickness, galaxyThickness), Random.Range(-galaxyRadius, galaxyRadius));
+            Quaternion rotation = starPrefab.transform.rotation;
 
-            stars[i].velocity = new Vector3((stars[i].transform.position.x * Mathf.Cos(90f)) - (stars[i].transform.position.z * Mathf.Sin(90f)), 0f, (stars[i].transform.position.z * Mathf.Cos(90f)) + (stars[i].transform.position.x * Mathf.Sin(90f))).normalized * UiValues["StarInitialVelocity"];
+            Star star = Instantiate(starPrefab, randomPosition, rotation, transform);
+            star.velocity = new Vector3((star.transform.position.x * Mathf.Cos(90f)) - (star.transform.position.z * Mathf.Sin(90f)), Random.Range(-1f, 1f), (star.transform.position.z * Mathf.Cos(90f)) + (star.transform.position.x * Mathf.Sin(90f))).normalized * starInitialVelocity;
 
-            root.insertToNode(stars[i]);
-
+            stars.Add(star);
+            root.InsertToNode(star);
         }
-        galaxy = new Galaxy(stars, UiValues["GalaxyRadius"], UiValues["GalaxyRadius"], UiValues["StarInitialVelocity"]);
-        simulationStarted = true;
 
+        galaxy = new Galaxy(stars, galaxyRadius, galaxyRadius, starInitialVelocity);
+        simulationStarted = true;
     }
     public void Delete()
     {
@@ -65,18 +61,20 @@ public class GalaxySimulationBH : MonoBehaviour
 
     public void Update()
     {
+
         if (simulationStarted)
         {
             foreach (Star star in galaxy.Stars)
             {
-                star.velocity += root.CalculateTreeForce(star, UiValues["Teta"], UiValues["SmoothingLenght"]);
+                star.velocity += root.CalculateTreeForce(star, UiValues["Teta"]);
                 star.transform.position += star.velocity * Time.deltaTime;
                 star.CameraView();
-                // setStarColor(star);
+                setStarColor(star);
             }
             root.ComputeMassDistribution(UiValues["BlackHoleMass"]);
-            //  center_galaxy();
-            displayInfoCount();
+             center_galaxy();
+           // displayInfoCount();
+
         }
     }
 
@@ -86,7 +84,6 @@ public class GalaxySimulationBH : MonoBehaviour
         color.g = Mathf.Clamp(1 / star.acceleration.magnitude, 0.35f, 1f);
         star.GetComponent<SpriteRenderer>().material.color = color;
     }
-
     void center_galaxy()
     {
         Vector3 mass_center = Vector3.zero;

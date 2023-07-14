@@ -104,7 +104,7 @@ NavMeshSettings:
   serializedVersion: 2
   m_ObjectHideFlags: 0
   m_BuildSettings:
-    serializedVersion: 2
+    serializedVersion: 3
     agentTypeID: 0
     agentRadius: 0.5
     agentHeight: 2
@@ -117,7 +117,7 @@ NavMeshSettings:
     cellSize: 0.16666667
     manualTileSize: 0
     tileSize: 256
-    accuratePlacement: 0
+    buildHeightMesh: 0
     maxJobWorkers: 0
     preserveTilesOutsideBounds: 0
     debug:
@@ -207,8 +207,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 744507960}
-        m_TargetAssemblyTypeName: GalaxySimulationBH, Assembly-CSharp
+      - m_Target: {fileID: 744507959}
+        m_TargetAssemblyTypeName: GalaxySimulationGPU, Assembly-CSharp
         m_MethodName: Delete
         m_Mode: 1
         m_Arguments:
@@ -849,7 +849,7 @@ GameObject:
   - component: {fileID: 288606308}
   - component: {fileID: 288606309}
   m_Layer: 5
-  m_Name: Teta
+  m_Name: InteractionRate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -924,9 +924,9 @@ MonoBehaviour:
   m_FillRect: {fileID: 554518985}
   m_HandleRect: {fileID: 2059605460}
   m_Direction: 0
-  m_MinValue: 1
-  m_MaxValue: 100
-  m_WholeNumbers: 1
+  m_MinValue: 0
+  m_MaxValue: 1
+  m_WholeNumbers: 0
   m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
@@ -1816,7 +1816,9 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 0
+  m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
@@ -2230,7 +2232,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 744507958}
-  - component: {fileID: 744507960}
+  - component: {fileID: 744507959}
   m_Layer: 0
   m_Name: GalaxySimulation
   m_TagString: Untagged
@@ -2253,7 +2255,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &744507960
+--- !u!114 &744507959
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2262,10 +2264,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 744507957}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bfc42c37147d61848ad77be8f0f1e38f, type: 3}
+  m_Script: {fileID: 11500000, guid: fbedfbb86c68e424a8e0e1c843228fc8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  starPrefab: {fileID: -7755269858923275546, guid: 97da25212c936aa4fa915d02a07eca0c, type: 3}
   sliders:
   - {fileID: 1330699102}
   - {fileID: 698808159}
@@ -2274,8 +2275,11 @@ MonoBehaviour:
   - {fileID: 1424864197}
   - {fileID: 2128957515}
   - {fileID: 288606309}
-  right: {r: 0.08533281, g: 0.64168936, b: 0.9622642, a: 1}
-  left: {r: 1, g: 0.6396315, b: 0, a: 1}
+  computeShader: {fileID: 7200000, guid: 35ab4d783fbb5004a83c3237bc15fa7c, type: 3}
+  starPrefab: {fileID: 6951729407357512326, guid: 97da25212c936aa4fa915d02a07eca0c, type: 3}
+  renderMaterial: {fileID: 2100000, guid: 11c281b7c487bc544b4afcfc83b69ea9, type: 2}
+  render: 1
+  particleSize: 0.01
 --- !u!1 &795290070
 GameObject:
   m_ObjectHideFlags: 0
@@ -2925,7 +2929,9 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 0
+  m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
@@ -3189,9 +3195,17 @@ Camera:
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
+  m_Iso: 200
+  m_ShutterSpeed: 0.005
+  m_Aperture: 16
+  m_FocusDistance: 10
+  m_FocalLength: 50
+  m_BladeCount: 5
+  m_Curvature: {x: 2, y: 11}
+  m_BarrelClipping: 0.25
+  m_Anamorphism: 0
   m_SensorSize: {x: 36, y: 24}
   m_LensShift: {x: 0, y: 0}
-  m_FocalLength: 50
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -3367,6 +3381,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 694960394}
     m_Modifications:
     - target: {fileID: 6866509874498721864, guid: ad79ce1a4d286154db4a033aee8b590f, type: 3}
@@ -3466,6 +3481,9 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1559542870}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ad79ce1a4d286154db4a033aee8b590f, type: 3}
 --- !u!224 &1054312393 stripped
 RectTransform:
@@ -5092,6 +5110,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 694960394}
     m_Modifications:
     - target: {fileID: 5914724508403755040, guid: 7d45516b021eed14c8b1082f5cfffaf4, type: 3}
@@ -5183,6 +5202,9 @@ PrefabInstance:
       value: performance
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7d45516b021eed14c8b1082f5cfffaf4, type: 3}
 --- !u!224 &1527729811 stripped
 RectTransform:
@@ -5231,6 +5253,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 694960394}
     m_Modifications:
     - target: {fileID: 6911741592792021024, guid: 2ce068729e53cdc4ba5ad3141caee0be, type: 3}
@@ -5330,6 +5353,9 @@ PrefabInstance:
       value: Play
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2ce068729e53cdc4ba5ad3141caee0be, type: 3}
 --- !u!224 &1559542869 stripped
 RectTransform:
@@ -5433,7 +5459,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: teta (presision B-H)
+  m_Text: Interaction Rate
 --- !u!222 &1608267482
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5563,8 +5589,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 744507960}
-        m_TargetAssemblyTypeName: GalaxySimulationBH, Assembly-CSharp
+      - m_Target: {fileID: 744507959}
+        m_TargetAssemblyTypeName: GalaxySimulationGPU, Assembly-CSharp
         m_MethodName: Spawn
         m_Mode: 1
         m_Arguments:
@@ -6698,7 +6724,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1151083530}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 20000
+  m_MaxValue: 50000
   m_WholeNumbers: 1
   m_Value: 0
   m_OnValueChanged:
@@ -6721,6 +6747,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 694960394}
     m_Modifications:
     - target: {fileID: 1670775545857815809, guid: 128da68e3fb3a604983e1cab6a3d2ca2, type: 3}
@@ -6816,6 +6843,9 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1592280214}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 128da68e3fb3a604983e1cab6a3d2ca2, type: 3}
 --- !u!114 &5989960513055981608 stripped
 MonoBehaviour:
@@ -6838,6 +6868,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
+    serializedVersion: 3
     m_TransformParent: {fileID: 694960394}
     m_Modifications:
     - target: {fileID: 2905563215383463669, guid: 08e4669fd1b7ed94a8a16d5fad79f869, type: 3}
@@ -6953,4 +6984,7 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 08e4669fd1b7ed94a8a16d5fad79f869, type: 3}
