@@ -18,22 +18,22 @@ MonoBehaviour:
     m_Value: 1
   threshold:
     m_OverrideState: 0
-    m_Value: 0.9
+    m_Value: 0.83
   intensity:
     m_OverrideState: 1
-    m_Value: 6.98
+    m_Value: 9
   scatter:
     m_OverrideState: 0
-    m_Value: 0.7
+    m_Value: 0.783
   clamp:
     m_OverrideState: 0
-    m_Value: 65472
+    m_Value: -0
   tint:
     m_OverrideState: 0
     m_Value: {r: 0.043666895, g: 0.042452812, b: 1, a: 1}
   highQualityFiltering:
-    m_OverrideState: 0
-    m_Value: 0
+    m_OverrideState: 1
+    m_Value: 1
   downscale:
     m_OverrideState: 0
     m_Value: 0
@@ -42,11 +42,11 @@ MonoBehaviour:
     m_Value: 6
   dirtTexture:
     m_OverrideState: 0
-    m_Value: {fileID: 0}
+    m_Value: {fileID: 10904, guid: 0000000000000000f000000000000000, type: 0}
     dimension: 1
   dirtIntensity:
-    m_OverrideState: 1
-    m_Value: 8.03
+    m_OverrideState: 0
+    m_Value: 0
 --- !u!114 &-1364342074136632540
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -71,7 +71,7 @@ MonoBehaviour:
     m_Value: 1
   clamp:
     m_OverrideState: 1
-    m_Value: 0.0056
+    m_Value: 0
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -104,12 +104,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c5e1dc532bcb41949b58bc4f2abfbb7e, type: 3}
   m_Name: LensDistortion
   m_EditorClassIdentifier: 
-  active: 0
+  active: 1
   intensity:
     m_OverrideState: 0
     m_Value: 0.323
   xMultiplier:
-    m_OverrideState: 1
+    m_OverrideState: 0
     m_Value: 1
   yMultiplier:
     m_OverrideState: 0
@@ -160,13 +160,13 @@ MonoBehaviour:
   active: 0
   redOutRedIn:
     m_OverrideState: 0
-    m_Value: 100
+    m_Value: -200
   redOutGreenIn:
     m_OverrideState: 0
-    m_Value: 0
+    m_Value: -200
   redOutBlueIn:
-    m_OverrideState: 0
-    m_Value: 0
+    m_OverrideState: 1
+    m_Value: 200
   greenOutRedIn:
     m_OverrideState: 0
     m_Value: 0
@@ -177,13 +177,13 @@ MonoBehaviour:
     m_OverrideState: 0
     m_Value: 0
   blueOutRedIn:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: 0
   blueOutGreenIn:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: 0
   blueOutBlueIn:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: 100
 --- !u!114 &6549471826262364630
 MonoBehaviour:
