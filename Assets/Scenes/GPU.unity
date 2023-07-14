@@ -3726,7 +3726,7 @@ MonoBehaviour:
   cam: {fileID: 963194227}
   target: {fileID: 744507958}
   distanceToTarget: 100
-  mouseScroolSpeed: 300
+  mouseScroolSpeed: 800
 --- !u!114 &963194230
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3739,18 +3739,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbedfbb86c68e424a8e0e1c843228fc8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sliders:
-  - {fileID: 1330699102}
-  - {fileID: 698808159}
-  - {fileID: 316815262}
-  - {fileID: 1509166689}
-  - {fileID: 1424864197}
-  - {fileID: 2128957515}
-  - {fileID: 288606309}
   computeShader: {fileID: 7200000, guid: 35ab4d783fbb5004a83c3237bc15fa7c, type: 3}
-  starPrefab: {fileID: 6951729407357512326, guid: 97da25212c936aa4fa915d02a07eca0c, type: 3}
   renderMaterial: {fileID: 2100000, guid: 9b0bb27c75f1712478f5e37817b078a9, type: 2}
-  render: 1
   particleSize: 0.01
 --- !u!114 &963194231
 MonoBehaviour:

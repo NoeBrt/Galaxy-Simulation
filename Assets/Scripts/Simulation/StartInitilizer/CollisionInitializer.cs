@@ -6,14 +6,13 @@ namespace Simulation
 {
     public class CollisionInitializer : BodiesInitializer
     {
-        float thickness;
-        float diameter;
-        float DistanceBetweenStars = 100f;
         GalaxyInitializer galaxInit;
+        float DistanceBetweenStars;
 
         public CollisionInitializer(SimulationParameter simulationParameter) : base(simulationParameter)
         {
             galaxInit = new GalaxyInitializer(simulationParameter);
+            DistanceBetweenStars = simulationParameter.Radius * 2f;
         }
 
 
@@ -22,7 +21,7 @@ namespace Simulation
 
             Particule[] galaxies1 = galaxInit.InitStars(Vector3.left * DistanceBetweenStars, base.bodiesCount / 2);
             Particule[] galaxies2 = galaxInit.InitStars(Vector3.right * DistanceBetweenStars, base.bodiesCount % 2 == 0 ? base.bodiesCount / 2 : base.bodiesCount / 2 + 1);
-            Particule[] allGalaxies = new Particule[base.bodiesCount];
+            Particule[] allGalaxies = new Particule[base.bodiesCount+1];
             //rotate the galaxie2 at 90° on the x axis, the veloty has to be rotated too
             for (int i = 0; i < galaxies2.Length; i++)
             {

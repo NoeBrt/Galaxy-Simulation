@@ -7,6 +7,7 @@ namespace Simulation
     {
         float thickness;
         float diameter;
+        float centerConcentration;
 
 
         public GalaxyInitializer(SimulationParameter simulationParameter) : base(simulationParameter)
@@ -23,8 +24,8 @@ namespace Simulation
             for (int i = 0; i < base.bodiesCount; i++)
             {
                 var star = new Particule();
-                star.position = insideCylinder(diameter, thickness);
-                star.velocity = DiscVelocity(base.initialVelocity, star,Vector3.zero);
+                    star.position = insideCylinder(diameter, thickness);
+                star.velocity = DiscVelocity(base.initialVelocity, star, Vector3.zero);
                 data[i] = star;
             }
             return data;
@@ -36,16 +37,22 @@ namespace Simulation
             for (int i = 0; i < count; i++)
             {
                 var star = new Particule();
-                star.position = insideCylinder(diameter, thickness) + center;
-                star.velocity = DiscVelocity(base.initialVelocity, star,center) ;
+ 
+                    star.position = insideCylinder(diameter, thickness) + center;
+                star.velocity = DiscVelocity(base.initialVelocity, star, center);
                 data[i] = star;
             }
             return data;
         }
 
+
+
         private Vector3 insideCylinder(float diameter, float thickness)
         {
-            Vector2 discPoint = Random.insideUnitCircle * (diameter / 2f);
+           float fourthRootRadius = 1 - Mathf.Pow(Random.value, 1.0f / 1.1f); 
+            float angle = Random.value * 2 * Mathf.PI;
+
+            Vector2 discPoint = new Vector2(fourthRootRadius * Mathf.Cos(angle), fourthRootRadius * Mathf.Sin(angle)) * (diameter / 2f);
             float yPosition = Random.Range(-thickness / 2f, thickness / 2f);
 
             return new Vector3(discPoint.x, yPosition, discPoint.y);
@@ -53,19 +60,20 @@ namespace Simulation
 
         private Vector3 DiscVelocity(float starInitialVelocity, Particule star, Vector3 center)
         {
-            Vector3 direction = (center - star.position).normalized; // direction from p1 to P
+            Vector3 direction = (center - star.position); // direction from p1 to P
             Vector3 up = new Vector3(0, 1, 0); // Up vector
-            Vector3 velocityDirection = Vector3.Cross(up, direction); // Perpendicular direction
-            float speed = starInitialVelocity; // Speed magnitude
-            Vector3 velocity = velocityDirection * speed;
+            Vector3 velocityDirection = Vector3.Cross(up, direction.normalized); // Perpendicular direction
+
+            Vector3 velocity = velocityDirection * starInitialVelocity * direction.magnitude / (diameter / 4f);
+
 
             return velocity;
 
-           /*    var x = (star.position.x * Mathf.Cos(90f)) - (star.position.z * Mathf.Sin(90f));
-            var z = (star.position.z * Mathf.Cos(90f)) + (star.position.x * Mathf.Sin(90f));
-            var y = Random.Range(-1f, 1f);
-            return new Vector3(x, y, z).normalized * starInitialVelocity;*/
-         
+            /*    var x = (star.position.x * Mathf.Cos(90f)) - (star.position.z * Mathf.Sin(90f));
+             var z = (star.position.z * Mathf.Cos(90f)) + (star.position.x * Mathf.Sin(90f));
+             var y = Random.Range(-1f, 1f);
+             return new Vector3(x, y, z).normalized * starInitialVelocity;*/
+
 
         }
 
