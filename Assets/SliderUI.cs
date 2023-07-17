@@ -7,11 +7,12 @@ public class SliderUi : MonoBehaviour
 {
     [SerializeField] private Text label;
     [SerializeField] private Text value;
-    public Text Value { get; set; }
-    public Text Label { get ; set; }
+    public Text Value { get => value; set => this.value = value; }
+    public Text Label { get => label; set => label = value; }
 
     public void SetSliderInteractable(bool state)
     {
+        if (state == GetComponent<Slider>().interactable) return;
         GetComponent<Slider>().interactable = state;
         SetLabelOpacity(state);
     }
