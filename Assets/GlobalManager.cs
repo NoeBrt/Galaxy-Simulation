@@ -34,7 +34,7 @@ namespace Simulation
         {
             // Configurez les éléments UI au démarrage du jeu
             //UIManager.Init();
-            UIManager.init(DefaultsList[0]);
+            UIManager.init(0);
             SimulationParameter.Init(0);
         }
 

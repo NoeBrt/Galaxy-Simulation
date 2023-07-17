@@ -6,17 +6,16 @@ public class SliderValueToText : MonoBehaviour
 {
     [SerializeField] Slider sliderUI;
     private Text textSliderValue;
-    Vector3 offset = new Vector3(0, 0, 20);
 
-    void Awake()
+    void OnEnable()
     {
         textSliderValue = GetComponent<Text>();
-        textSliderValue.text = sliderUI.value + "";
+        //textSliderValue.text = sliderUI.value + "";
 
     }
     private void Update()
     {
-        textSliderValue.transform.localPosition = sliderUI.handleRect.localPosition;
+     //   textSliderValue.transform.localPosition = sliderUI.handleRect.localPosition;
     }
 
     public void Text(float value)

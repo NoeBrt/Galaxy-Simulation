@@ -30,7 +30,7 @@ namespace Simulation
 
 
 
-        public void init(SimulationDefaults defaults)
+        public void setSliderValue(SimulationDefaults defaults)
         {
             bodiesCountSlider.value = defaults.bodiesCount;
             radiusSlider.value = defaults.radius;
@@ -43,23 +43,34 @@ namespace Simulation
         }
 
 
-        public void OnTypeDropdownValueChanged(int value)
+        public void init(int value)
         {
             SimulationDefaults defaults = GlobalManager.Instance.DefaultsList[value];
-            init(defaults);
+            setSliderValue(defaults);
             GlobalManager.Instance.SimulationParameter.Init(value);
             switch ((SimulationType)value)
             {
                 case SimulationType.Galaxy:
-                    BlackHoleMassSlider.interactable = true;
-                    ThicknessSlider.interactable = true;
+                    BlackHoleMassSlider.GetComponent<SliderUi>().SetSliderInteractable(true);
+                    ThicknessSlider.GetComponent<SliderUi>().SetSliderInteractable(true);
+                    BodiesCountSlider.GetComponent<SliderUi>().Label.text = "Number of Stars";
+                    RadiusSlider.GetComponent<SliderUi>().Label.text = "Galaxy Radius";
+                    ThicknessSlider.GetComponent<SliderUi>().Label.text = "Galaxy Thickness";
+                    initialVelocitySlider.GetComponent<SliderUi>().Label.text = "Stars Initial Velocity";
                     break;
                 case SimulationType.Collision:
-                    BlackHoleMassSlider.interactable = false;
+                    BlackHoleMassSlider.GetComponent<SliderUi>().SetSliderInteractable(false);
+                    BodiesCountSlider.GetComponent<SliderUi>().Label.text = "Number of Stars";
+                    RadiusSlider.GetComponent<SliderUi>().Label.text = "Galaxies Radius";
+                    ThicknessSlider.GetComponent<SliderUi>().Label.text = "Galaxies Thickness";
+                    initialVelocitySlider.GetComponent<SliderUi>().Label.text = "Stars Initial Velocity";
                     break;
                 case SimulationType.Universe:
-                    BlackHoleMassSlider.interactable = false;
-                    ThicknessSlider.interactable = false;
+                    BlackHoleMassSlider.GetComponent<SliderUi>().SetSliderInteractable(false);
+                    ThicknessSlider.GetComponent<SliderUi>().SetSliderInteractable(false);
+                    BodiesCountSlider.GetComponent<SliderUi>().Label.text = "Number of Galaxies";
+                    RadiusSlider.GetComponent<SliderUi>().Label.text = "Universe Radius";
+                    initialVelocitySlider.GetComponent<SliderUi>().Label.text = "Galaxies Initial Velocity";
                     break;
 
             }
