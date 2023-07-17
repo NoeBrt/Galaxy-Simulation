@@ -49,7 +49,7 @@ namespace Simulation
             setSliderValue(defaults);
             GlobalManager.Instance.SimulationParameter.Init(value);
             Debug.Log(BodiesCountSlider.GetComponent<SliderUi>());
-            switch ((SimulationType)value)
+            switch ((SimulationType)value) // not proud of this
             {
                 case SimulationType.Galaxy:
                     BlackHoleMassSlider.GetComponent<SliderUi>().SetSliderInteractable(true);
