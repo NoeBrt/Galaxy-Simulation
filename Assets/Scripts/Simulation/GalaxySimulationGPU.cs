@@ -26,7 +26,6 @@ namespace Simulation
 
         private bool render = false;
         [SerializeField]
-        private float particleSize = 0.01f;
         SimulationParameter simulationParameter;
 
         // Start is called before the first frame update

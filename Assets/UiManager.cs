@@ -48,6 +48,7 @@ namespace Simulation
             SimulationDefaults defaults = GlobalManager.Instance.DefaultsList[value];
             setSliderValue(defaults);
             GlobalManager.Instance.SimulationParameter.Init(value);
+            Debug.Log(BodiesCountSlider.GetComponent<SliderUi>());
             switch ((SimulationType)value)
             {
                 case SimulationType.Galaxy:
@@ -60,6 +61,7 @@ namespace Simulation
                     break;
                 case SimulationType.Collision:
                     BlackHoleMassSlider.GetComponent<SliderUi>().SetSliderInteractable(false);
+                    ThicknessSlider.GetComponent<SliderUi>().SetSliderInteractable(true);
                     BodiesCountSlider.GetComponent<SliderUi>().Label.text = "Number of Stars";
                     RadiusSlider.GetComponent<SliderUi>().Label.text = "Galaxies Radius";
                     ThicknessSlider.GetComponent<SliderUi>().Label.text = "Galaxies Thickness";
