@@ -34,7 +34,11 @@ public class WriteCSV
     }
     void getFilePath()
     {
-        //filename = EditorUtility.SaveFilePanel("Save Perfomance Info", "", "FPSandCPUusage", ".csv");
+#if UNITY_EDITOR
+
+        filename = EditorUtility.SaveFilePanel("Save Perfomance Info", "", "FPSandCPUusage", ".csv");
+#endif
+
 
         if (File.Exists(filename))
         {

@@ -24,7 +24,8 @@ public class GalaxySimulation : MonoBehaviour
         List<Star> stars = new List<Star>();
         for (int i = 0; i < UiValues["StarCount"]; i++)
         {
-            stars.Add(Instantiate(starPrefab, DiscPos(Random.Range(0f, 360f), Random.Range(-UiValues["GalaxyThickness"], UiValues["GalaxyThickness"]), Random.Range(-UiValues["GalaxyRadius"], UiValues["GalaxyRadius"])), starPrefab.transform.rotation, transform));
+            Vector3 pos = DiscPos(Random.Range(0f, 360f), Random.Range(-UiValues["GalaxyThickness"], UiValues["GalaxyThickness"]), Random.Range(-UiValues["GalaxyRadius"], UiValues["GalaxyRadius"]));
+            stars.Add(Instantiate(starPrefab, pos, starPrefab.transform.rotation, transform));
             stars[i].velocity = new Vector3((stars[i].transform.position.x * Mathf.Cos(90f)) - (stars[i].transform.position.z * Mathf.Sin(90f)), 0f, (stars[i].transform.position.z * Mathf.Cos(90f)) + (stars[i].transform.position.x * Mathf.Sin(90f))).normalized * UiValues["StarInitialVelocity"];
         }
         galaxy = new Galaxy(stars, UiValues["GalaxyRadius"], UiValues["GalaxyThickness"], UiValues["StarInitialVelocity"]);
@@ -48,20 +49,20 @@ public class GalaxySimulation : MonoBehaviour
     {
         if (simulationStarted)
         {
-            galaxy.Stars.ForEach(star => star.UpdatePosition(galaxy));
-            center_galaxy();
-
+            galaxy.Stars.ForEach(star => star.UpdatePosition(galaxy, UiValues["SmoothingLenght"]));
+           // center_galaxy();
 
         }
+
     }
+
     void center_galaxy()
     {
-        Vector3 mass_center = new Vector3();
+        Vector3 mass_center = Vector3.zero;
         foreach (Star star in galaxy.Stars)
             mass_center += star.transform.position;
 
         mass_center /= galaxy.Stars.Count;
-
         foreach (Star star in galaxy.Stars)
         {
             star.transform.position -= mass_center;
