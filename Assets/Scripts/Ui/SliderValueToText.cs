@@ -8,7 +8,7 @@ public class SliderValueToText : MonoBehaviour
     private Text textSliderValue;
     Vector3 offset = new Vector3(0, 0, 20);
 
-    void Start()
+    void Awake()
     {
         textSliderValue = GetComponent<Text>();
         textSliderValue.text = sliderUI.value + "";
@@ -21,7 +21,9 @@ public class SliderValueToText : MonoBehaviour
 
     public void Text(float value)
     {
+        Debug.Log(value);
+        Debug.Log(textSliderValue.text);
 
-        textSliderValue.text = System.Math.Round(value, 2).ToString();
+        textSliderValue.text = System.Math.Round(value, 3).ToString();
     }
 }

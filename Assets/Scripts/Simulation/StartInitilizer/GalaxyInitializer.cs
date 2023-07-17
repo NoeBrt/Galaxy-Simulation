@@ -24,7 +24,7 @@ namespace Simulation
             for (int i = 0; i < base.bodiesCount; i++)
             {
                 var star = new Particule();
-                    star.position = insideCylinder(diameter, thickness);
+                star.position = insideCylinder(diameter, thickness);
                 star.velocity = DiscVelocity(base.initialVelocity, star, Vector3.zero);
                 data[i] = star;
             }
@@ -37,8 +37,8 @@ namespace Simulation
             for (int i = 0; i < count; i++)
             {
                 var star = new Particule();
- 
-                    star.position = insideCylinder(diameter, thickness) + center;
+
+                star.position = insideCylinder(diameter, thickness) + center;
                 star.velocity = DiscVelocity(base.initialVelocity, star, center);
                 data[i] = star;
             }
@@ -49,7 +49,7 @@ namespace Simulation
 
         private Vector3 insideCylinder(float diameter, float thickness)
         {
-           float fourthRootRadius = 1 - Mathf.Pow(Random.value, 1.0f / 1.1f); 
+            float fourthRootRadius = 1 - Mathf.Pow(Random.value, 0.5f);
             float angle = Random.value * 2 * Mathf.PI;
 
             Vector2 discPoint = new Vector2(fourthRootRadius * Mathf.Cos(angle), fourthRootRadius * Mathf.Sin(angle)) * (diameter / 2f);
@@ -60,19 +60,21 @@ namespace Simulation
 
         private Vector3 DiscVelocity(float starInitialVelocity, Particule star, Vector3 center)
         {
-            Vector3 direction = (center - star.position); // direction from p1 to P
+            Vector3 direction = (center - star.position); // direction from star to center
+            float distance = direction.magnitude;
             Vector3 up = new Vector3(0, 1, 0); // Up vector
             Vector3 velocityDirection = Vector3.Cross(up, direction.normalized); // Perpendicular direction
 
-            Vector3 velocity = velocityDirection * starInitialVelocity * direction.magnitude / (diameter / 4f);
+            // Adjust the initial velocity based on distance to maintain stable circular orbits
+            float adjustedInitialVelocity = starInitialVelocity*10f * Mathf.Sqrt(distance/diameter);
 
+            // Add a small radial component to the velocity to give spiral arms
+            float radialVelocityFactor = 0.01f; // Experiment with different values for this
+            Vector3 radialComponent = direction.normalized * adjustedInitialVelocity * radialVelocityFactor;
+
+            Vector3 velocity = velocityDirection * adjustedInitialVelocity + radialComponent;
 
             return velocity;
-
-            /*    var x = (star.position.x * Mathf.Cos(90f)) - (star.position.z * Mathf.Sin(90f));
-             var z = (star.position.z * Mathf.Cos(90f)) + (star.position.x * Mathf.Sin(90f));
-             var y = Random.Range(-1f, 1f);
-             return new Vector3(x, y, z).normalized * starInitialVelocity;*/
 
 
         }

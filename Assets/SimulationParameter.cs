@@ -4,136 +4,119 @@ using UnityEngine;
 
 namespace Simulation
 {
-
-public class SimulationParameter : MonoBehaviour
-{
     public enum SimulationType
     {
         Galaxy,
-        Universe,
-        Collision
+        Collision,
+        Universe
     }
-    private int bodiesCount;
-
-    private float radius;
-    private float thickness; //utile seulement pour le type galaxies
-
-    private float initialVelocity;
-
-    private float smoothingLength;
-
-    private float blackHoleMass;
-
-    private float interactionRate;
-    private float timeStep;
-
-
-    public float Radius
+    public class SimulationParameter : MonoBehaviour
     {
-        get { return radius; }
-        set
+
+        private int bodiesCount;
+
+        private float radius;
+        private float thickness; //utile seulement pour le type galaxies
+
+        private float initialVelocity;
+
+        private float smoothingLength;
+
+        private float blackHoleMass;
+
+        private float interactionRate;
+        private float timeStep;
+
+
+        public float Radius
         {
-            radius = value;
-            GlobalManager.Instance.UIManager.RadiusSlider.value = value;
+            get { return radius; }
+            set
+            {
+                radius = value;
+                GlobalManager.Instance.UIManager.RadiusSlider.value = value;
+            }
         }
-    }
 
-    public float Thickness
-    {
-        get { return thickness; }
-        set
+        public float Thickness
         {
-            thickness = value;
-            GlobalManager.Instance.UIManager.ThicknessSlider.value = value;
+            get { return thickness; }
+            set
+            {
+                thickness = value;
+                GlobalManager.Instance.UIManager.ThicknessSlider.value = value;
+            }
         }
-    }
 
 
-    public float InitialVelocity
-    {
-        get { return initialVelocity; }
-        set
+        public float InitialVelocity
         {
-            initialVelocity = value;
-            GlobalManager.Instance.UIManager.InitialVelocitySlider.value = value;
+            get { return initialVelocity; }
+            set
+            {
+                initialVelocity = value;
+                GlobalManager.Instance.UIManager.InitialVelocitySlider.value = value;
+            }
         }
-    }
 
-    public float SmoothingLength
-    {
-        get { return smoothingLength; }
-        set
+        public float SmoothingLength
         {
-            smoothingLength = value;
-            GlobalManager.Instance.UIManager.SmoothingLengthSlider.value = value;
+            get { return smoothingLength; }
+            set
+            {
+                smoothingLength = value;
+                GlobalManager.Instance.UIManager.SmoothingLengthSlider.value = value;
+            }
         }
-    }
 
-    public float BlackHoleMass
-    {
-        get { return blackHoleMass; }
-        set
+        public float BlackHoleMass
         {
-            blackHoleMass = value;
-            GlobalManager.Instance.UIManager.BlackHoleMassSlider.value = value;
+            get { return blackHoleMass; }
+            set
+            {
+                blackHoleMass = value;
+                GlobalManager.Instance.UIManager.BlackHoleMassSlider.value = value;
+            }
         }
-    }
 
-    public float InteractionRate
-    {
-        get { return interactionRate; }
-        set
+        public float InteractionRate
         {
-            interactionRate = value;
-            GlobalManager.Instance.UIManager.InteractionRateSlider.value = value;
+            get { return interactionRate; }
+            set
+            {
+                interactionRate = value;
+                GlobalManager.Instance.UIManager.InteractionRateSlider.value = value;
+            }
         }
-    }
 
-    public float BodiesCount
-    {
-        get { return (int) bodiesCount; }
-        set
+        public float BodiesCount
         {
-            bodiesCount = (int)value;
-            GlobalManager.Instance.UIManager.BodiesCountSlider.value = bodiesCount;
+            get { return (int)bodiesCount; }
+            set
+            {
+                bodiesCount = (int)value;
+                GlobalManager.Instance.UIManager.BodiesCountSlider.value = bodiesCount;
+            }
         }
-    }
-    public float TimeStep
-    {
-        get { return timeStep; }
-        set
+        public float TimeStep
         {
-            timeStep = value;
-            GlobalManager.Instance.UIManager.TimeStepSlider.value = value;
+            get { return timeStep; }
+            set
+            {
+                timeStep = value;
+                GlobalManager.Instance.UIManager.TimeStepSlider.value = value;
+            }
         }
-    }
 
 
-    public SimulationType simulationType { get; set; }
+        public SimulationType simulationType { get; set; }
 
 
-    public void Init()
-    {
-        BodiesCount = GlobalManager.Instance.UIManager.BodiesCountSlider.value;
-        Radius = GlobalManager.Instance.UIManager.RadiusSlider.value;
-        Thickness = GlobalManager.Instance.UIManager.ThicknessSlider.value;
-        InitialVelocity = GlobalManager.Instance.UIManager.InitialVelocitySlider.value;
-        SmoothingLength = GlobalManager.Instance.UIManager.SmoothingLengthSlider.value;
-        BlackHoleMass = GlobalManager.Instance.UIManager.BlackHoleMassSlider.value;
-        InteractionRate = GlobalManager.Instance.UIManager.InteractionRateSlider.value;
-        // TimeStep= GlobalManager.Instance.UIManager.TimeStepSlider.value;
-        simulationType = GlobalManager.Instance.UIManager.TypeDropdown.value == 0 ? SimulationType.Galaxy : GlobalManager.Instance.UIManager.TypeDropdown.value == 1 ? SimulationType.Universe : SimulationType.Collision;
-    }
-
-
-    public void setDropDownType()
-    {
-        simulationType = GlobalManager.Instance.UIManager.TypeDropdown.value == 0 ? SimulationType.Galaxy : GlobalManager.Instance.UIManager.TypeDropdown.value == 1 ? SimulationType.Collision : SimulationType.Universe;
+        public void Init(int simulationType)
+        {
+            this.simulationType = (SimulationType)simulationType;
+        }
 
     }
-
-
-    
-}
 
 }

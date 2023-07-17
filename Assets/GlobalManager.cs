@@ -5,37 +5,39 @@ using UnityEngine;
 namespace Simulation
 {
 
-public class GlobalManager : MonoBehaviour
-{
-    public static GlobalManager Instance { get; private set; }
-
-    // Références aux autres gestionnaires
-    public SimulationParameter SimulationParameter { get; private set; }
-    public UIManager UIManager { get; private set; }
-
-    private void Awake()
+    public class GlobalManager : MonoBehaviour
     {
-        if (Instance != null && Instance != this)
+        public static GlobalManager Instance { get; private set; }
+
+        // Références aux autres gestionnaires
+        public SimulationParameter SimulationParameter { get; private set; }
+        public UIManager UIManager { get; private set; }
+
+        public SimulationDefaults[] DefaultsList;
+        private void Awake()
         {
-            Destroy(this.gameObject);
+            if (Instance != null && Instance != this)
+            {
+                Destroy(this.gameObject);
+            }
+            else
+            {
+                Instance = this;
+            }
+
+            // Assumer que SimulationManager et UIManager sont attachés au même GameObject
+            SimulationParameter = GetComponent<SimulationParameter>();
+            UIManager = GetComponent<UIManager>();
         }
-        else
+
+        private void Start()
         {
-            Instance = this;
+            // Configurez les éléments UI au démarrage du jeu
+            //UIManager.Init();
+            UIManager.init(DefaultsList[0]);
+            SimulationParameter.Init(0);
         }
 
-        // Assumer que SimulationManager et UIManager sont attachés au même GameObject
-        SimulationParameter = GetComponent<SimulationParameter>();
-        UIManager = GetComponent<UIManager>();
+        // Autres méthodes liées à la gestion du jeu
     }
-
-    private void Start()
-    {
-        // Configurez les éléments UI au démarrage du jeu
-        //UIManager.Init();
-        SimulationParameter.Init();
-    }
-
-    // Autres méthodes liées à la gestion du jeu
-}
 }

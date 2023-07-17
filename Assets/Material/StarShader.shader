@@ -50,12 +50,12 @@ Shader "Custom/StarShader"
 
                 }else if(simulationType==1){
                                      //   color = lerp(float4(0.0, 0.0, 1.0, 1.0),float4(0.5, 0.0, 1.0, 1.0),  saturate(i.speed / 200.0));
+               color = lerp(float4(0.0, 0.0, 1.0, 1.0),float4(1.0, 0.5, 0.0, 1.0),  saturate(i.speed / 200.0));
 
-                    color = lerp(float4(0.2, 0.0, 1.0, 1.0),float4(1.0, 0.1, 0.1, 1.0),  saturate(i.speed / 30));
                 }else if(simulationType==2){
                  //color =float4(1.0, 0.5, 0.0, 1.0),float4(0.5, 0.0, 1.0, 1.0),  saturate(i.speed / 200.0);
+                    color = lerp(float4(0.2, 0.0, 1.0, 1.0),float4(1.0, 0.1, 0.1, 1.0),  saturate(i.speed / 30));
 
-               color = lerp(float4(0.0, 0.0, 1.0, 1.0),float4(1.0, 0.5, 0.0, 1.0),  saturate(i.speed / 200.0));
                 }
            
                   
