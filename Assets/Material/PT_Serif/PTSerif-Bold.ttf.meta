@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: 37928d993c94a7744b7a67c23bae5e5b
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - PT Serif
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 52f2217fa95b23e459776745fef71725, type: 3}
+  - {fileID: 12800000, guid: b676577bb296f59479c36febfce9c581, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

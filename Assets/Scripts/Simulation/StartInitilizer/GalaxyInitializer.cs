@@ -62,39 +62,27 @@ namespace Simulation
         {
             Vector3 direction = (center - star.position); // direction from star to center
             float distance = direction.magnitude;
-            Vector3 up = new Vector3(0, 1, 0); // Up vector
+            Vector3 up = new Vector3(0, 1, 0);
             Vector3 velocityDirection = Vector3.Cross(up, direction.normalized); // Perpendicular direction
+            Vector3 velocity = velocityDirection * starInitialVelocity;
+            
+            
+             // Up vector
+          //  Vector3 velocityDirection = Vector3.Cross(up, direction.normalized); // Perpendicular direction
 
             // Adjust the initial velocity based on distance to maintain stable circular orbits
-            float adjustedInitialVelocity = starInitialVelocity*10f * Mathf.Sqrt(distance/diameter);
+           // float adjustedInitialVelocity = starInitialVelocity*10f * Mathf.Sqrt(distance/diameter);
 
             // Add a small radial component to the velocity to give spiral arms
-            float radialVelocityFactor = 0.01f; // Experiment with different values for this
-            Vector3 radialComponent = direction.normalized * adjustedInitialVelocity * radialVelocityFactor;
+            //float radialVelocityFactor = 0.01f; // Experiment with different values for this
+          //  Vector3 radialComponent = direction.normalized //* adjustedInitialVelocity * radialVelocityFactor;
 
-            Vector3 velocity = velocityDirection * adjustedInitialVelocity + radialComponent;
+            //Vector3 velocity = velocityDirection * adjustedInitialVelocity + radialComponent;
 
             return velocity;
 
 
         }
-
-        /*  private Vector3 DiscVelocity2(float starInitialVelocity, Particule star)
-       {   
-           Vector2 velocity = Vector3.Distance(star.position,Vector3.zero)/diameter * starInitialVelocity;
-
-   Vector3 direction = (P.position - p1.position).normalized; // direction from p1 to P
-   Vector3 up = new Vector3(0, 1, 0); // Up vector
-   Vector3 velocityDirection = Vector3.Cross(up, direction); // Perpendicular direction
-   float speed = ω * R; // Speed magnitude
-   Vector3 velocity = velocityDirection * speed;
-
-         //  var x = (star.position.x * Mathf.Cos(90f)) - (star.position.z * Mathf.Sin(90f));
-          // var z = (star.position.z * Mathf.Cos(90f)) + (star.position.x * Mathf.Sin(90f));
-           var y = Random.Range(-1f, 1f);
-           return new Vector3(x, , z).normalized * starInitialVelocity;
-
-       }*/
 
     }
 }

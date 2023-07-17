@@ -25,7 +25,6 @@ namespace Simulation
         private Material renderMaterial;
 
         private bool render = false;
-        [SerializeField]
         SimulationParameter simulationParameter;
 
         // Start is called before the first frame update

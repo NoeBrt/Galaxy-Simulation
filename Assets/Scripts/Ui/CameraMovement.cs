@@ -10,6 +10,7 @@ public class CameraMovement : MonoBehaviour
     [SerializeField] private Transform target;
     [SerializeField] private float distanceToTarget = 10;
     [SerializeField] private float mouseScroolSpeed = 100f;
+    [SerializeField] GameObject canva;
 
     private Vector3 previousPosition;
 
@@ -53,9 +54,7 @@ public class CameraMovement : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.B))
         {
-            GameObject.Find("Canvas").SetActive(!GameObject.Find("Canvas").activeSelf);
-            GameObject.Find("Canvas1").SetActive(!GameObject.Find("Canvas").activeSelf);
-
+            canva.SetActive(!canva.activeSelf);
         }
     }
 }
