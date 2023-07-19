@@ -8,7 +8,7 @@ public class CameraMovement : MonoBehaviour
 {
     [SerializeField] private Camera cam;
     [SerializeField] private Transform target;
-    [SerializeField] private float distanceToTarget = 10;
+    [SerializeField] private float distanceToTarget = 30;
     [SerializeField] private float mouseScroolSpeed = 100f;
     [SerializeField] GameObject canva;
 
