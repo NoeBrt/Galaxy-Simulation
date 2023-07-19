@@ -1345,7 +1345,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2630871107191660980, guid: d443015f506fbf147882e9a012f55092, type: 3}
       propertyPath: m_MaxValue
-      value: 100
+      value: 300
       objectReference: {fileID: 0}
     - target: {fileID: 2630871107191660980, guid: d443015f506fbf147882e9a012f55092, type: 3}
       propertyPath: m_MinValue
@@ -1429,7 +1429,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6400044080386730766, guid: d443015f506fbf147882e9a012f55092, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 294.8878
+      value: 342.56
       objectReference: {fileID: 0}
     - target: {fileID: 6400044080386730766, guid: d443015f506fbf147882e9a012f55092, type: 3}
       propertyPath: m_LocalScale.x
@@ -1437,7 +1437,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6400044080386730766, guid: d443015f506fbf147882e9a012f55092, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -0.00018036
+      value: -0.00075245
       objectReference: {fileID: 0}
     - target: {fileID: 6400044080386730766, guid: d443015f506fbf147882e9a012f55092, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -1878,7 +1878,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cam: {fileID: 963194227}
   target: {fileID: 744507958}
-  distanceToTarget: 100
+  distanceToTarget: 200
   mouseScroolSpeed: 800
   canva: {fileID: 694960390}
 --- !u!114 &963194230
