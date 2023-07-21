@@ -1,5 +1,7 @@
 # Galaxies and Universe Simulation 
 
+[Itch Io LINK HERE](https://nosleepnoe.itch.io/galaxy-simulator)
+
 Latest release use GPU computing, in the previous build the Barnes-hut Algorithm was used.
 
 Embark on a cosmic journey with our innovative simulator. Create stunning simulations of various space phenomena and immerse yourself in the breathtaking universe we live in.
