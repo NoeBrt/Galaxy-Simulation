@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: particle (1) 1
+  m_Name: particle
   m_Shader: {fileID: 4800000, guid: 0c25b3d5c356f7a44adc167bcc0b5f23, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
