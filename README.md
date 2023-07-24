@@ -1,31 +1,39 @@
-# Galaxy Simulation with GPU computing and Barnes-Hut
+# Galaxies and Universe Simulation 
 
-This project is a simulation of a galaxy using the Barnes-Hut algorithm. Users can create and customize a galaxy by adjusting parameters such as the number of stars, galaxy size, galaxy width, star velocities around the center, theta value, and smoothing length for limiting star acceleration. Additionally, users can add a black hole to the center of the galaxy and adjust its mass. The simulation also provides interactive camera controls, allowing users to rotate the camera around the galaxy using the mouse and zoom in/out using the mouse wheel.
+[ITCH IO PAGE HERE](https://nosleepnoe.itch.io/galaxy-simulator)
 
-## Features
+Latest release use GPU computing, in the previous build the Barnes-hut Algorithm was used.
 
-1. **Galaxy Creation**: Users can generate a galaxy simulation by specifying the desired number of stars, galaxy size, and galaxy width.
-2. **Star Velocity**: Users can adjust the velocity of stars around the center of the galaxy, controlling the rotation speed and direction.
-3. **Theta Value**: The simulation incorporates the Barnes-Hut algorithm, and users can customize the theta value, which affects the accuracy and performance of the algorithm.
-4. **Smoothing Length**: Users can set the smoothing length to limit the acceleration of stars, preventing unrealistic motions.
-5. **Black Hole**: The simulation allows users to add a black hole to the center of the galaxy and adjust its mass to observe its gravitational effects on nearby stars.
-6. **Camera Controls**: Users can interactively rotate the camera around the galaxy using the mouse and zoom in/out using the mouse wheel to observe the simulation from different perspectives.
+Embark on a cosmic journey with our innovative simulator. Create stunning simulations of various space phenomena and immerse yourself in the breathtaking universe we live in.
 
-## Usage
+Through an intuitive menu interface, users can choose from three types of celestial simulations:
 
-1. Clone the repository, download the project files or download the release.
-2. Open the simulation in your preferred programming environment.
-3. Adjust the simulation parameters, such as the number of stars, galaxy size, galaxy width, star velocities, theta value, and smoothing length.
-4. If desired, add a black hole to the center of the galaxy and adjust its mass.
-5. Run the simulation to visualize the galaxy and observe the gravitational interactions between stars.
-6. Use the mouse to rotate the camera around the galaxy and the mouse wheel to zoom in/out for different views.
-7. Modify the parameters, including star velocities and black hole mass, to observe different behaviors of the galaxy.
+1. A standalone Galaxy
+2. Two Galaxies Colliding
+3. A broad Universe
 
+The simulator allows users to manipulate various parameters, giving you control over:
 
-## Contribution
+- The number of stars (or galaxies)
+- The radius of the object being simulated
+- The thickness of the galaxy (or galaxies)
+- The initial rotation of the stars around the center
+- The smoothing length (used to smooth the acceleration of the particles)
+- The interaction rate (optimized to improve the framerate)
 
-Contributions to this project are welcome. If you have any suggestions or would like to report an issue, please open a new issue on the project repository.
+With the mouse, the user can rotate and zoom in/out around the simulation and use 'B' to toggle the menu.
 
-## License
+## Screenshots
 
-This project is licensed under the MIT- see the MIT  file for details.
+![Simulation image 1](https://img.itch.zone/aW1nLzEyODQ3ODMyLnBuZw==/original/JqZErP.png)
+*Universe Simulation with 500 000 galaxies*
+
+![Simulation image 2](https://img.itch.zone/aW1nLzEyODQ3ODMwLnBuZw==/original/qriNpl.png)
+*Galaxy with 150 000 stars*
+
+![Galaxy Collision Simulation example](https://img.itch.zone/aW1nLzEyODQ3ODA4LnBuZw==/original/DBiWG1.png)
+*Two Galaxies collision Example*
+
+## We Value Your Feedback!
+
+Do you enjoy exploring the cosmos with our simulation? Please consider leaving a review or comment. Your feedback helps us to continually improve and offer the best possible cosmic journey. Thank you for your support!
