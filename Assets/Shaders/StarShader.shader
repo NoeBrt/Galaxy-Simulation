@@ -3,6 +3,7 @@ Shader "Custom/StarShader"
     SubShader
     {
         Tags { "RenderType"="Transparent" "Queue"="Transparent" }
+        Blend SrcAlpha OneMinusSrcAlpha
         
         Pass
         {
