@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Simulation.Struct;
 
 namespace Simulation
 {
@@ -26,6 +27,7 @@ namespace Simulation
 
         private float interactionRate;
         private float timeStep;
+        private DynamicColor color;
 
 
         public float Radius
@@ -110,11 +112,14 @@ namespace Simulation
 
 
         public SimulationType simulationType { get; set; }
-
+        public DynamicColor Color { get => color; set => color = value; }
 
         public void Init(int simulationType)
         {
             this.simulationType = (SimulationType)simulationType;
+            SimulationDefaults defaults = GlobalManager.Instance.DefaultsList[simulationType];
+            Color = defaults.color;
+
         }
 
     }

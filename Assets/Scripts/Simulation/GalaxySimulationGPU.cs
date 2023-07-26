@@ -43,10 +43,14 @@ namespace Simulation
             float blackHoleMass = simulationParameter.BlackHoleMass;
             float interactionRate = simulationParameter.InteractionRate;
 
+
             SetupShader(starCount);
             InitStarsAttribute(starCount, Time.deltaTime, smoothingLenght, interactionRate, blackHoleMass);
             InitStarsPos(simulationParameter);
-            renderMaterial.SetInt("simulationType", (int)simulationParameter.simulationType);
+            renderMaterial.SetColor("colorStart", simulationParameter.Color.colorStart);
+            renderMaterial.SetColor("colorEnd", simulationParameter.Color.colorEnd);
+            renderMaterial.SetFloat("divider",simulationParameter.Color.divider);
+
             simulationStarted = true;
             render = true;
 

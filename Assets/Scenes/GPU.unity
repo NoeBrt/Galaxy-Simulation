@@ -1048,7 +1048,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_VertexColorAlwaysGammaSpace: 0
+  m_VertexColorAlwaysGammaSpace: 1
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
@@ -2924,6 +2924,10 @@ MonoBehaviour:
     blackHoleMass: 0
     interactionRate: 0.01
     timeStep: 0.002
+    color:
+      colorStart: {r: 0, g: 0, b: 1, a: 1}
+      colorEnd: {r: 0.5, g: 0, b: 1, a: 1}
+      divider: 200
   - bodiesCount: 200000
     radius: 186
     thickness: 10
@@ -2932,6 +2936,10 @@ MonoBehaviour:
     blackHoleMass: 0
     interactionRate: 0.01
     timeStep: 0.002
+    color:
+      colorStart: {r: 0, g: 0, b: 1, a: 1}
+      colorEnd: {r: 1, g: 0.5, b: 0, a: 1}
+      divider: 200
   - bodiesCount: 500000
     radius: 1320
     thickness: 0
@@ -2940,6 +2948,10 @@ MonoBehaviour:
     blackHoleMass: 0
     interactionRate: 0.005
     timeStep: 0.0002
+    color:
+      colorStart: {r: 0.2, g: 0, b: 1, a: 0.69803923}
+      colorEnd: {r: 1, g: 0.1, b: 0.1, a: 1}
+      divider: 30
 --- !u!114 &1303046374 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3923520453948538409, guid: d443015f506fbf147882e9a012f55092, type: 3}

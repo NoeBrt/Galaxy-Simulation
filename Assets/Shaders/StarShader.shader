@@ -2,21 +2,25 @@ Shader "Custom/StarShader"
 {
     SubShader
     {
-        Tags { "RenderType"="Opaque" }
+        Tags { "RenderType"="Transparent" "Queue"="Transparent" }
         
         Pass
         {
-            CGPROGRAM
+            HLSLPROGRAM
             #pragma vertex vert
             #pragma fragment frag
-            #include "UnityCG.cginc"
+
+            #include "Packages/com.unity.render-pipelines.core/ShaderLibrary/Common.hlsl"
+            #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
 
             struct appdata
             {
                 float4 vertex : POSITION;
                 
             };
-            uniform int simulationType;
+            uniform float4 colorStart;
+            uniform float4 colorEnd;
+            uniform float divider;
 
             struct Star{
                 float3 position;
@@ -31,38 +35,21 @@ Shader "Custom/StarShader"
 
             };
 
-             v2f vert (uint vertexID : SV_VertexID)
+            v2f vert (uint vertexID : SV_VertexID, appdata v)
             {
                 v2f o;
                 Star star = starBuffer[vertexID];
-                o.vertex = UnityObjectToClipPos(float4(star.position, 1.0));
+                o.vertex = TransformObjectToHClip(float4(star.position.xyz, 1.0));
                 o.speed = length(star.velocity);
                 return o;
             }
 
-            fixed4 frag (v2f i) : SV_Target
-            {
-
-                float4 color;
-    
-                if (simulationType == 0){
-                    color = lerp(float4(0.0, 0.0, 1.0, 1.0),float4(0.5, 0.0, 1.0, 1.0),  saturate(i.speed / 200.0));
-
-                }else if(simulationType==1){
-                                     //   color = lerp(float4(0.0, 0.0, 1.0, 1.0),float4(0.5, 0.0, 1.0, 1.0),  saturate(i.speed / 200.0));
-               color = lerp(float4(0.0, 0.0, 1.0, 1.0),float4(1.0, 0.5, 0.0, 1.0),  saturate(i.speed / 200.0));
-
-                }else if(simulationType==2){
-                 //color =float4(1.0, 0.5, 0.0, 1.0),float4(0.5, 0.0, 1.0, 1.0),  saturate(i.speed / 200.0);
-                    color = lerp(float4(0.2, 0.0, 1.0, 1.0),float4(1.0, 0.1, 0.1, 1.0),  saturate(i.speed / 30));
-
-                }
-           
-                  
-                    return color;
-           
+            float4 frag (v2f i) : SV_Target
+            {       
+                return lerp(colorStart, colorEnd, saturate(i.speed / divider));
+                
             }
-            ENDCG
+            ENDHLSL
         }
     }
 }

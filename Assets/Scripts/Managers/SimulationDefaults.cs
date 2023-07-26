@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using Simulation.Struct;
 [System.Serializable]
 public class SimulationDefaults
 {
@@ -13,5 +13,7 @@ public class SimulationDefaults
     public float blackHoleMass;
     public float interactionRate;
     public float timeStep;
+    public DynamicColor color;
+
 
 }
