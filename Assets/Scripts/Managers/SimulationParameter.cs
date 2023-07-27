@@ -14,105 +14,22 @@ namespace Simulation
     public class SimulationParameter : MonoBehaviour
     {
 
-        private int bodiesCount;
+        public float BodiesCount{get; set;}
 
-        private float radius;
-        private float thickness; //utile seulement pour le type galaxies
+        public float Radius{get; set;}
+        public float Thickness{get; set;}//utile seulement pour le type galaxies
 
-        private float initialVelocity;
+        public float InitialVelocity{get; set;}
 
-        private float smoothingLength;
+        public float SmoothingLength{get; set;}
 
-        private float blackHoleMass;
+        public float BlackHoleMass{get; set;}
 
-        private float interactionRate;
-        private float timeStep;
-        private DynamicColor color;
-
-
-        public float Radius
-        {
-            get { return radius; }
-            set
-            {
-                radius = value;
-                GlobalManager.Instance.UIManager.RadiusSlider.value = value;
-            }
-        }
-
-        public float Thickness
-        {
-            get { return thickness; }
-            set
-            {
-                thickness = value;
-                GlobalManager.Instance.UIManager.ThicknessSlider.value = value;
-            }
-        }
-
-
-        public float InitialVelocity
-        {
-            get { return initialVelocity; }
-            set
-            {
-                initialVelocity = value;
-                GlobalManager.Instance.UIManager.InitialVelocitySlider.value = value;
-            }
-        }
-
-        public float SmoothingLength
-        {
-            get { return smoothingLength; }
-            set
-            {
-                smoothingLength = value;
-                GlobalManager.Instance.UIManager.SmoothingLengthSlider.value = value;
-            }
-        }
-
-        public float BlackHoleMass
-        {
-            get { return blackHoleMass; }
-            set
-            {
-                blackHoleMass = value;
-                GlobalManager.Instance.UIManager.BlackHoleMassSlider.value = value;
-            }
-        }
-
-        public float InteractionRate
-        {
-            get { return interactionRate; }
-            set
-            {
-                interactionRate = value;
-                GlobalManager.Instance.UIManager.InteractionRateSlider.value = value;
-            }
-        }
-
-        public float BodiesCount
-        {
-            get { return (int)bodiesCount; }
-            set
-            {
-                bodiesCount = (int)value;
-                GlobalManager.Instance.UIManager.BodiesCountSlider.value = bodiesCount;
-            }
-        }
-        public float TimeStep
-        {
-            get { return timeStep; }
-            set
-            {
-                timeStep = value;
-                GlobalManager.Instance.UIManager.TimeStepSlider.value = value;
-            }
-        }
-
+        public float InteractionRate{get; set;}
+        public float TimeStep{get; set;}
+        public DynamicColor Color{get; set;}
 
         public SimulationType simulationType { get; set; }
-        public DynamicColor Color { get => color; set => color = value; }
 
         public void Init(int simulationType)
         {

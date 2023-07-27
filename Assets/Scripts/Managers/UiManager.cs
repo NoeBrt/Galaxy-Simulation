@@ -78,6 +78,7 @@ namespace Simulation
 
             }
         }
+        
         SimulationType previousType;
         public void setCameraRotation()
         {

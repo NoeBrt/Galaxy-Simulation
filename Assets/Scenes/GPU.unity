@@ -4813,9 +4813,17 @@ PrefabInstance:
       value: 0.20754719
       objectReference: {fileID: 0}
     - target: {fileID: 2630871107191660980, guid: d443015f506fbf147882e9a012f55092, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2630871107191660980, guid: d443015f506fbf147882e9a012f55092, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1279112509}
+    - target: {fileID: 2630871107191660980, guid: d443015f506fbf147882e9a012f55092, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Simulation.SimulationParameter, Assembly-CSharp
+      objectReference: {fileID: 0}
     - target: {fileID: 3923520453948538409, guid: d443015f506fbf147882e9a012f55092, type: 3}
       propertyPath: m_Text
       value: Number of Stars
