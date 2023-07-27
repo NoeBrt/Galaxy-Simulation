@@ -73,9 +73,45 @@ namespace Simulation
                     BodiesCountSlider.GetComponent<SliderUi>().Label.text = "Number of Galaxies";
                     RadiusSlider.GetComponent<SliderUi>().Label.text = "Universe Radius";
                     initialVelocitySlider.GetComponent<SliderUi>().Label.text = "Galaxies Initial Velocity";
+
                     break;
 
             }
+        }
+        SimulationType previousType;
+        public void setCameraRotation()
+        {
+            Debug.Log(previousType + " " + GlobalManager.Instance.SimulationParameter.simulationType);
+            if (previousType == GlobalManager.Instance.SimulationParameter.simulationType)
+                return;
+
+            switch (GlobalManager.Instance.SimulationParameter.simulationType)
+            {
+                case SimulationType.Galaxy:
+                    Camera.main.transform.rotation = Quaternion.Euler(90, 0, 0);
+                    Camera.main.GetComponent<CameraMovement>().AutoRotation = false;
+                    Camera.main.GetComponent<CameraMovement>().DistanceToTarget = radiusSlider.value;
+
+                    break;
+                case SimulationType.Collision:
+                    Camera.main.transform.rotation = Quaternion.Euler(90, 0, 0);
+                    Camera.main.GetComponent<CameraMovement>().AutoRotation = false;
+                    Camera.main.GetComponent<CameraMovement>().DistanceToTarget = radiusSlider.value * 2;
+
+
+                    break;
+                case SimulationType.Universe:
+                    Camera.main.transform.rotation = Quaternion.Euler(0, 0, 0);
+                    Camera.main.GetComponent<CameraMovement>().AutoRotation = true;   
+                      Camera.main.GetComponent<CameraMovement>().DistanceToTarget = radiusSlider.value * 2;       
+
+                    break;
+
+            }
+
+
+            previousType = GlobalManager.Instance.SimulationParameter.simulationType;
+
         }
     }
 

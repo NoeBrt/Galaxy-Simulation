@@ -11,15 +11,16 @@ public class CameraMovement : MonoBehaviour
     [SerializeField] private float distanceToTarget = 30;
     [SerializeField] private float mouseScroolSpeed = 100f;
     [SerializeField] GameObject canva;
-
+    [SerializeField] private float autoRotationSpeed = 2f;
+    public float rotationSpeed = 10f;
     private Vector3 previousPosition;
 
     public float DistanceToTarget { get => distanceToTarget; set => distanceToTarget = value; }
-
+    public bool AutoRotation { get; set; }
     private void LateUpdate()
     {
 
-        if (EventSystem.current.IsPointerOverGameObject())
+        if (EventSystem.current.IsPointerOverGameObject()&&Input.GetMouseButton(0))
         {
             return;
         }
@@ -40,6 +41,10 @@ public class CameraMovement : MonoBehaviour
         {
             cam.transform.Rotate(new Vector3(1, 0, 0), rotationAroundXAxis);
             cam.transform.Rotate(new Vector3(0, 1, 0), rotationAroundYAxis, Space.World); // <— This is what makes it work!
+        }
+        else if (AutoRotation)
+        {
+            cam.transform.RotateAround(target.position, Vector3.up, Time.deltaTime * autoRotationSpeed);
         }
         DistanceToTarget += -Input.mouseScrollDelta.y * mouseScroolSpeed * Time.deltaTime;
         cam.transform.Translate(new Vector3(0, 0, -DistanceToTarget));
