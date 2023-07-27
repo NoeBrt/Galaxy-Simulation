@@ -20,10 +20,6 @@ public class CameraMovement : MonoBehaviour
     private void LateUpdate()
     {
 
-        if (EventSystem.current.IsPointerOverGameObject()&&Input.GetMouseButton(0))
-        {
-            return;
-        }
 
         if (Input.GetMouseButtonDown(0))
         {
@@ -37,7 +33,10 @@ public class CameraMovement : MonoBehaviour
         Vector3 direction = previousPosition - newPosition;
         float rotationAroundYAxis = -direction.x * 180; // camera moves horizontally
         float rotationAroundXAxis = direction.y * 180; // camera moves vertically
-        if (Input.GetMouseButton(0))
+
+
+
+        if (Input.GetMouseButton(0) && !EventSystem.current.IsPointerOverGameObject())
         {
             cam.transform.Rotate(new Vector3(1, 0, 0), rotationAroundXAxis);
             cam.transform.Rotate(new Vector3(0, 1, 0), rotationAroundYAxis, Space.World); // <— This is what makes it work!
