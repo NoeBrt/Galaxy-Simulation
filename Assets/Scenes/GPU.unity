@@ -1671,7 +1671,7 @@ Camera:
   m_GameObject: {fileID: 963194225}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
+  m_ClearFlags: 2
   m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
@@ -1694,7 +1694,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.3
-  far clip plane: 5000
+  far clip plane: 8000
   field of view: 60
   orthographic: 0
   orthographic size: 5
@@ -1745,6 +1745,8 @@ MonoBehaviour:
   distanceToTarget: 200
   mouseScroolSpeed: 800
   canva: {fileID: 694960390}
+  autoRotationSpeed: 5
+  rotationSpeed: 10
 --- !u!114 &963194231
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2929,7 +2931,7 @@ MonoBehaviour:
       colorEnd: {r: 0.5, g: 0, b: 1, a: 0.8509804}
       divider: 200
   - bodiesCount: 200000
-    radius: 186
+    radius: 230
     thickness: 10
     initialVelocity: 76
     smoothingLength: 200
@@ -3935,6 +3937,18 @@ MonoBehaviour:
       - m_Target: {fileID: 744507959}
         m_TargetAssemblyTypeName: Simulation.GalaxySimulationGPU, Assembly-CSharp
         m_MethodName: Spawn
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1279112511}
+        m_TargetAssemblyTypeName: Simulation.UIManager, Assembly-CSharp
+        m_MethodName: setCameraRotation
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
