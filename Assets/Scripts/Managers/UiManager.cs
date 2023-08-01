@@ -39,7 +39,7 @@ namespace Simulation
             smoothingLengthSlider.value = defaults.smoothingLength;
             blackHoleMassSlider.value = defaults.blackHoleMass;
             interactionRateSlider.value = defaults.interactionRate;
-            // timeStepSlider.value = defaults.timeStep;
+            timeStepSlider.value = defaults.timeStep;
         }
 
 

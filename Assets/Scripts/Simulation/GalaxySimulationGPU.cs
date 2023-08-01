@@ -42,10 +42,10 @@ namespace Simulation
             float smoothingLenght = simulationParameter.SmoothingLength;
             float blackHoleMass = simulationParameter.BlackHoleMass;
             float interactionRate = simulationParameter.InteractionRate;
-
+            float timeStep = simulationParameter.TimeStep;
 
             SetupShader(starCount);
-            InitStarsAttribute(starCount, Time.deltaTime, smoothingLenght, interactionRate, blackHoleMass);
+            InitStarsAttribute(starCount, timeStep, smoothingLenght, interactionRate, blackHoleMass);
             InitStarsPos(simulationParameter);
             renderMaterial.SetColor("colorStart", simulationParameter.Color.colorStart);
             renderMaterial.SetColor("colorEnd", simulationParameter.Color.colorEnd);
@@ -61,18 +61,19 @@ namespace Simulation
             if (simulationStarted)
             {
                 RunComputeShader();
-                UpdateDynamicParameter(simulationParameter.SmoothingLength, simulationParameter.InteractionRate, simulationParameter.BlackHoleMass);
+                UpdateDynamicParameter(simulationParameter.SmoothingLength, simulationParameter.InteractionRate, simulationParameter.BlackHoleMass,simulationParameter.TimeStep);
             }
         }
         void RunComputeShader()
         {
             computeShader.Dispatch(kernel, starCount / 128 + 1, 1, 1);
         }
-        void UpdateDynamicParameter(float smoothingLenght, float interactionRate, float blackHoleMass)
+        void UpdateDynamicParameter(float smoothingLenght, float interactionRate, float blackHoleMass,float timeStep)
         {
             computeShader.SetFloat("smoothingLenght", smoothingLenght);
             computeShader.SetFloat("interactionRate", interactionRate);
             computeShader.SetFloat("blackHoleMass", blackHoleMass);
+            computeShader.SetFloat("deltaTime",timeStep);
         }
 
         public void SetupShader(int n)
