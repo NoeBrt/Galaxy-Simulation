@@ -49,7 +49,7 @@ namespace Simulation
             InitStarsPos(simulationParameter);
             renderMaterial.SetColor("colorStart", simulationParameter.Color.colorStart);
             renderMaterial.SetColor("colorEnd", simulationParameter.Color.colorEnd);
-            renderMaterial.SetFloat("divider",simulationParameter.Color.divider);
+            renderMaterial.SetFloat("divider", simulationParameter.Color.divider);
 
             simulationStarted = true;
             render = true;
@@ -61,11 +61,18 @@ namespace Simulation
             if (simulationStarted)
             {
                 RunComputeShader();
+                UpdateDynamicParameter(simulationParameter.SmoothingLength, simulationParameter.InteractionRate, simulationParameter.BlackHoleMass);
             }
         }
         void RunComputeShader()
         {
             computeShader.Dispatch(kernel, starCount / 128 + 1, 1, 1);
+        }
+        void UpdateDynamicParameter(float smoothingLenght, float interactionRate, float blackHoleMass)
+        {
+            computeShader.SetFloat("smoothingLenght", smoothingLenght);
+            computeShader.SetFloat("interactionRate", interactionRate);
+            computeShader.SetFloat("blackHoleMass", blackHoleMass);
         }
 
         public void SetupShader(int n)
