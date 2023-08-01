@@ -862,6 +862,7 @@ GameObject:
   - component: {fileID: 639769012}
   - component: {fileID: 639769011}
   - component: {fileID: 639769013}
+  - component: {fileID: 639769014}
   m_Layer: 5
   m_Name: menu
   m_TagString: Untagged
@@ -951,6 +952,21 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &639769014
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 639769009}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6747e824fad281142b9f4ccc027193b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rectTransform: {fileID: 639769010}
+  selectedColor: {r: 0.1260947, g: 0.1260947, b: 0.20754719, a: 0.45490196}
+  image: {fileID: 639769011}
 --- !u!114 &642304051 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3923520453948538409, guid: d443015f506fbf147882e9a012f55092, type: 3}
@@ -1421,6 +1437,7 @@ GameObject:
   - component: {fileID: 743488162}
   - component: {fileID: 743488164}
   - component: {fileID: 743488163}
+  - component: {fileID: 743488165}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -1490,6 +1507,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 743488161}
   m_CullTransparentMesh: 1
+--- !u!114 &743488165
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 743488161}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6747e824fad281142b9f4ccc027193b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rectTransform: {fileID: 639769010}
+  selectedColor: {r: 0.1260947, g: 0.1260947, b: 0.20754719, a: 0.45490196}
+  image: {fileID: 639769011}
 --- !u!1 &744507957
 GameObject:
   m_ObjectHideFlags: 0
