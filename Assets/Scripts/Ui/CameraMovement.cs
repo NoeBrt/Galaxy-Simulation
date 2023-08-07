@@ -43,7 +43,7 @@ public class CameraMovement : MonoBehaviour
         }
         else if (AutoRotation)
         {
-            cam.transform.RotateAround(target.position, Vector3.up, Time.deltaTime * autoRotationSpeed);
+            cam.transform.RotateAround(target.position, transform.up, Time.deltaTime * autoRotationSpeed);
         }
         DistanceToTarget += -Input.mouseScrollDelta.y * mouseScroolSpeed * Time.deltaTime;
         cam.transform.Translate(new Vector3(0, 0, -DistanceToTarget));
