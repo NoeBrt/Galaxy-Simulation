@@ -38,7 +38,7 @@ With the mouse, the user can rotate and zoom in/out around the simulation and us
 
 * Download the zipped build in the Release section
 * Extract the zipped folder 
-* Lauch GameOfLife.exe and play !
+* Lauch GalaxySimulation.exe and play !
   
 ## We Value Your Feedback!
 
