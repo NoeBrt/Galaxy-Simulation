@@ -1,7 +1,7 @@
 # Galaxies and Universe Simulation 
 
 [ITCH IO PAGE HERE](https://nosleepnoe.itch.io/galaxy-simulator)
-
+<div class="video-container"><iframe width="500" height="281" src="//www.youtube.com/embed/rNPn8Y6LPtc" frameborder="0" allowfullscreen=""></iframe></div>
 Latest release use GPU computing, in the previous build the Barnes-hut Algorithm was used.
 
 Embark on a cosmic journey with our innovative simulator. Create stunning simulations of various space phenomena and immerse yourself in the breathtaking universe we live in.
@@ -34,6 +34,12 @@ With the mouse, the user can rotate and zoom in/out around the simulation and us
 ![Galaxy Collision Simulation example](https://img.itch.zone/aW1nLzEyODQ3ODA4LnBuZw==/original/DBiWG1.png)
 *Two Galaxies collision Example*
 
+## How to play ? 
+
+* Download the zipped build in the Release section
+* Extract the zipped folder 
+* Lauch GameOfLife.exe and play !
+  
 ## We Value Your Feedback!
 
 Do you enjoy exploring the cosmos with our simulation? Please consider leaving a review or comment. Your feedback helps us to continually improve and offer the best possible cosmic journey. Thank you for your support!
