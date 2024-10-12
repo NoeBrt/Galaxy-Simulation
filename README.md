@@ -2,6 +2,11 @@
 
 [ITCH IO PAGE HERE](https://nosleepnoe.itch.io/galaxy-simulator)
 
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/38f96514-dd03-4ac5-8063-6d532f6cc1d4" alt="output">
+</p>
+
 Latest release use GPU computing, in the previous build the Barnes-hut Algorithm was used.
 
 Embark on a cosmic journey with our innovative simulator. Create stunning simulations of various space phenomena and immerse yourself in the breathtaking universe we live in.
