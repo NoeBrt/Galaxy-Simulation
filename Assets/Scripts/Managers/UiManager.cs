@@ -13,6 +13,7 @@ namespace Simulation
         [SerializeField] private Slider initialVelocitySlider;
         [SerializeField] private Slider smoothingLengthSlider;
         [SerializeField] private Slider blackHoleMassSlider;
+        [SerializeField] private Slider galaxiesDistanceSlider;
         [SerializeField] private Slider interactionRateSlider;
         [SerializeField] private Slider timeStepSlider;
         [SerializeField] private TMP_Dropdown typeDropdown;
@@ -23,6 +24,7 @@ namespace Simulation
         public Slider InitialVelocitySlider => initialVelocitySlider;
         public Slider SmoothingLengthSlider => smoothingLengthSlider;
         public Slider BlackHoleMassSlider => blackHoleMassSlider;
+        public Slider GalaxiesDistance => galaxiesDistanceSlider;
         public Slider InteractionRateSlider => interactionRateSlider;
         public Slider TimeStepSlider => timeStepSlider;
         public TMP_Dropdown TypeDropdown => typeDropdown;
@@ -39,6 +41,7 @@ namespace Simulation
             smoothingLengthSlider.value = defaults.smoothingLength;
             blackHoleMassSlider.value = defaults.blackHoleMass;
             interactionRateSlider.value = defaults.interactionRate;
+            galaxiesDistanceSlider.value = defaults.distance;
             timeStepSlider.value = defaults.timeStep;
         }
 
@@ -52,7 +55,10 @@ namespace Simulation
             switch ((SimulationType)value) // not proud of this
             {
                 case SimulationType.Galaxy:
+                    galaxiesDistanceSlider.gameObject.SetActive(false);
+                    BlackHoleMassSlider.gameObject.SetActive(true);
                     BlackHoleMassSlider.GetComponent<SliderUi>().SetSliderInteractable(true);
+                    BlackHoleMassSlider.GetComponent<SliderUi>().Label.text = "Black Hole Mass";
                     ThicknessSlider.GetComponent<SliderUi>().SetSliderInteractable(true);
                     BodiesCountSlider.GetComponent<SliderUi>().Label.text = "Number of Stars";
                     RadiusSlider.GetComponent<SliderUi>().Label.text = "Galaxy Radius";
@@ -60,7 +66,10 @@ namespace Simulation
                     initialVelocitySlider.GetComponent<SliderUi>().Label.text = "Stars Initial Velocity";
                     break;
                 case SimulationType.Collision:
-                    BlackHoleMassSlider.GetComponent<SliderUi>().SetSliderInteractable(false);
+                    BlackHoleMassSlider.gameObject.SetActive(false);
+                    galaxiesDistanceSlider.gameObject.SetActive(true);
+                    galaxiesDistanceSlider.GetComponent<SliderUi>().SetSliderInteractable(true);
+                    galaxiesDistanceSlider.GetComponent<SliderUi>().Label.text = "Galaxies Distance";
                     ThicknessSlider.GetComponent<SliderUi>().SetSliderInteractable(true);
                     BodiesCountSlider.GetComponent<SliderUi>().Label.text = "Number of Stars";
                     RadiusSlider.GetComponent<SliderUi>().Label.text = "Galaxies Radius";
@@ -68,7 +77,10 @@ namespace Simulation
                     initialVelocitySlider.GetComponent<SliderUi>().Label.text = "Stars Initial Velocity";
                     break;
                 case SimulationType.Universe:
+                    galaxiesDistanceSlider.gameObject.SetActive(false);
+                    BlackHoleMassSlider.gameObject.SetActive(true);
                     BlackHoleMassSlider.GetComponent<SliderUi>().SetSliderInteractable(false);
+                    BlackHoleMassSlider.GetComponent<SliderUi>().Label.text = "Black Hole Mass";
                     ThicknessSlider.GetComponent<SliderUi>().SetSliderInteractable(false);
                     BodiesCountSlider.GetComponent<SliderUi>().Label.text = "Number of Galaxies";
                     RadiusSlider.GetComponent<SliderUi>().Label.text = "Universe Radius";
@@ -78,7 +90,7 @@ namespace Simulation
 
             }
         }
-        
+
         SimulationType previousType;
         public void setCameraRotation()
         {
@@ -103,8 +115,8 @@ namespace Simulation
                     break;
                 case SimulationType.Universe:
                     Camera.main.transform.rotation = Quaternion.Euler(0, 0, 0);
-                    Camera.main.GetComponent<CameraMovement>().AutoRotation = true;   
-                      Camera.main.GetComponent<CameraMovement>().DistanceToTarget = radiusSlider.value * 2;       
+                    Camera.main.GetComponent<CameraMovement>().AutoRotation = true;
+                      Camera.main.GetComponent<CameraMovement>().DistanceToTarget = radiusSlider.value * 2;
 
                     break;
 

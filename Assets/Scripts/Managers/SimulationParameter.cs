@@ -24,6 +24,7 @@ namespace Simulation
         public float SmoothingLength{get; set;}
 
         public float BlackHoleMass{get; set;}
+        public float Distance{get; set;}
 
         public float InteractionRate{get; set;}
         public float TimeStep{get; set;}

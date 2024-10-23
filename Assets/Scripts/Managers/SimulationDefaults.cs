@@ -11,6 +11,7 @@ public class SimulationDefaults
     public float initialVelocity;
     public float smoothingLength;
     public float blackHoleMass;
+    public float distance;
     public float interactionRate;
     public float timeStep;
     public DynamicColor color;

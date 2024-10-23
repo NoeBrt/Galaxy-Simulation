@@ -12,7 +12,7 @@ namespace Simulation
         public CollisionInitializer(SimulationParameter simulationParameter) : base(simulationParameter)
         {
             galaxInit = new GalaxyInitializer(simulationParameter);
-            DistanceBetweenStars = simulationParameter.Radius;
+            DistanceBetweenStars = simulationParameter.Distance;
         }
 
 
@@ -33,7 +33,7 @@ namespace Simulation
                 var velocityY = star.velocity.y * Mathf.Cos(90f) - star.velocity.z * Mathf.Sin(90f);
                 var velocityZ = star.velocity.z * Mathf.Cos(90f) + star.velocity.y * Mathf.Sin(90f);
                 galaxies2[i] = new Particule() { position = new Vector3(x, y, z), velocity = new Vector3(velocityX, velocityY, velocityZ) };
-                //return the two galaxies array 
+                //return the two galaxies array
             }
 
 
@@ -59,7 +59,7 @@ namespace Simulation
 
 
         /*  private Vector3 DiscVelocity2(float starInitialVelocity, Particule star)
-       {   
+       {
            Vector2 velocity = Vector3.Distance(star.position,Vector3.zero)/diameter * starInitialVelocity;
 
    Vector3 direction = (P.position - p1.position).normalized; // direction from p1 to P
