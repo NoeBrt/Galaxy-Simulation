@@ -20,6 +20,7 @@ public class CameraMovement : MonoBehaviour
     private void LateUpdate()
     {
 
+        if (floatingUI.isDragging) return;
 
         if (Input.GetMouseButtonDown(0))
         {
