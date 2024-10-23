@@ -10,7 +10,7 @@ public class floatingUI : MonoBehaviour
     private Vector3 initialMousePos;
     private bool selected;
     [SerializeField] Color selectedColor;
-    [SerializeField] Image image;
+    public Image image;
     Color originalColor;
     private void Awake() {
         originalColor = image.color;
@@ -63,5 +63,10 @@ public class floatingUI : MonoBehaviour
         }
 
         return null; // Nothing under the mouse
+    }
+
+    public void setImage(Transform img)
+    {
+        image = img.GetComponent<Image>();
     }
 }
