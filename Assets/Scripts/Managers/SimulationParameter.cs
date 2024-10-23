@@ -28,18 +28,46 @@ namespace Simulation
 
         public float InteractionRate{get; set;}
         public float TimeStep{get; set;}
-        public DynamicColor Color{get; set;}
 
         public SimulationType simulationType { get; set; }
 
-        public void Init(int simulationType)
-        {
-            this.simulationType = (SimulationType)simulationType;
-            SimulationDefaults defaults = GlobalManager.Instance.DefaultsList[simulationType];
-            Color = defaults.color;
+    private DynamicColor _color;
 
-        }
-
+    public DynamicColor Color
+    {
+        get { return _color; }
+        set { _color = value; }
     }
 
+    public void setColorStart(Vector3 colorStart)
+    {
+        _color.colorStart = new Color(colorStart.x, colorStart.y, colorStart.z, 0.5f);
+    }
+
+    public void setColorEnd(Vector3 colorEnd)
+    {
+        _color.colorEnd = new Color(colorEnd.x, colorEnd.y, colorEnd.z, 0.5f);
+    }
+
+    public void setColorStartAlpha(float alpha)
+    {
+        _color.colorStart.a = alpha;
+    }
+
+    public void setColorEndAlpha(float alpha)
+    {
+        _color.colorEnd.a = alpha;
+    }
+
+    public void setDivider(float divider)
+    {
+        _color.divider = divider;
+    }
+
+    public void Init(int simulationType)
+    {
+        this.simulationType = (SimulationType)simulationType;
+        SimulationDefaults defaults = GlobalManager.Instance.DefaultsList[simulationType];
+        _color = defaults.color;
+    }}
 }
