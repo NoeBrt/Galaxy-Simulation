@@ -36,10 +36,11 @@ With the mouse, the user can rotate and zoom in/out around the simulation and us
 ![Simulation image 2](https://img.itch.zone/aW1nLzEyODQ3ODMwLnBuZw==/original/qriNpl.png)
 *Galaxy with 150 000 stars*
 
-![Galaxy Collision Simulation example](https://img.itch.zone/aW1nLzEyODQ3ODA4LnBuZw==/original/DBiWG1.png)
+![Galaxy Collision Simulation example](https://github.com/user-attachments/assets/bf7c00d5-d953-4e1f-98b8-e5dcc6858076)
 *Two Galaxies collision Example*
 
 ## How to play ? 
+
 
 * Download the zipped build in the Release section
 * Extract the zipped folder 
