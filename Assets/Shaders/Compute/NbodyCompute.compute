@@ -1,34 +1,25 @@
 // Each #kernel tells which function to compile; you can have many kernel
 
 #pragma kernel UpdateStars
-#pragma kernel InitStars
 
-
-
-// Create a RenderTexture with enableRandomWrite flag and set it
-// with cs.SetTexture
 struct Star{
     float3 position;
     float3 velocity;
 };
 
-int starCount;
+uint starCount;
 float deltaTime;
 float interactionRate;
 float smoothingLenght;
 float blackHoleMass;
 
 
-float diameter;
-float thickness;
-float initVelocity;
 
 RWStructuredBuffer<Star> star;
 
-float3 norm_2(float3 vect){
-    return pow(vect.x,2)+pow(vect.y,2)+pow(vect.z,2);
+float norm_2(float3 vect){
+    return dot(vect, vect);  // More efficient than manual calculation
 }
-
 float3 compute_interaction( float3 position_1,float3 position_2,float smoothingLenght){
     float3 vect= position_2-position_1;
     return 9.81*normalize(vect)/(norm_2(vect)+smoothingLenght);
@@ -38,6 +29,7 @@ float3 compute_interaction( float3 position_1,float3 position_2,float smoothingL
 [numthreads(128,1,1)]
 void UpdateStars (uint3 id : SV_DispatchThreadID)
 {
+    if (id.x >= starCount) return;
     float3 position = star[id.x].position;
     float3 velocity = star[id.x].velocity;
     float3 acceleration = float3(0,0,0);
@@ -55,55 +47,6 @@ void UpdateStars (uint3 id : SV_DispatchThreadID)
     star[id.x].position = position;
     star[id.x].velocity = velocity;
 }
-
-
-
-float Random (uint seed, uint index)
-{
-    seed += index;
-    seed ^= 2747636419u;
-    seed *= 2654435769u;
-    seed ^= seed >> 16;
-    seed *= 2654435769u;
-    seed ^= seed >> 16;
-    seed *= 2654435769u;
-    return float(seed) / 4294967296.0;
-}
-
-
-
-float3 insideCylinder(float d, float t, uint seed) 
-{
-    // Generate random point inside a cylinder
-    float angle = 2.0 * 3.14159265359 * Random(seed, 0); // 2*PI*rand
-    float radius = d * sqrt(Random(seed, 1));
-    float height = t * (Random(seed, 2) - 0.5f);
-
-    float3 pos = float3(radius * cos(angle), height, radius * sin(angle));
-    return pos;
-}
-
-float3 discVelocity(float v, float3 p, uint seed) 
-{
-    float3 rotatedPosition= float3(0,0,0);
-    rotatedPosition.x = (p.x * cos(90.0)) - (p.z * sin(90.0));
-    rotatedPosition.z = (p.z * cos(90.0)) + (p.x * sin(90.0));
-    rotatedPosition.y = (Random(seed, 3) * 2.0) - 1.0; // Range(-1, 1)
-
-    float3 velocity = normalize(rotatedPosition) * v;
-    return velocity;
-}
-
-
-[numthreads(128,1,1)]
-void InitStars (uint3 id : SV_DispatchThreadID)
-{
-    float3 position = insideCylinder(diameter, thickness, id.x);
-    float3 velocity = discVelocity(initVelocity, position, id.x);
-    star[id.x].position = position;
-    star[id.x].velocity = velocity;
-}
-
 
 
 

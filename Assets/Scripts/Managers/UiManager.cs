@@ -1,6 +1,7 @@
 using UnityEngine.UI;
 using UnityEngine;
 using TMPro;
+using System.Collections.Generic;
 namespace Simulation
 {
 
@@ -17,6 +18,7 @@ namespace Simulation
         [SerializeField] private Slider interactionRateSlider;
         [SerializeField] private Slider timeStepSlider;
         [SerializeField] private TMP_Dropdown typeDropdown;
+        [SerializeField] private List<Button> ColorButtons;
 
         public Slider BodiesCountSlider => bodiesCountSlider;
         public Slider RadiusSlider => radiusSlider;
@@ -28,7 +30,7 @@ namespace Simulation
         public Slider InteractionRateSlider => interactionRateSlider;
         public Slider TimeStepSlider => timeStepSlider;
         public TMP_Dropdown TypeDropdown => typeDropdown;
-
+        public List<Button> ColorButtonsList => ColorButtons;
 
 
 
@@ -64,6 +66,8 @@ namespace Simulation
                     RadiusSlider.GetComponent<SliderUi>().Label.text = "Galaxy Radius";
                     ThicknessSlider.GetComponent<SliderUi>().Label.text = "Galaxy Thickness";
                     initialVelocitySlider.GetComponent<SliderUi>().Label.text = "Stars Initial Velocity";
+                    ColorButtonsList.ForEach(button => button.GetComponent<ChangeColorOnClick>().divider = 200);
+                    ColorButtonsList[2].GetComponent<ChangeColorOnClick>().divider = 100;
                     break;
                 case SimulationType.Collision:
                     BlackHoleMassSlider.gameObject.SetActive(false);
@@ -75,6 +79,8 @@ namespace Simulation
                     RadiusSlider.GetComponent<SliderUi>().Label.text = "Galaxies Radius";
                     ThicknessSlider.GetComponent<SliderUi>().Label.text = "Galaxies Thickness";
                     initialVelocitySlider.GetComponent<SliderUi>().Label.text = "Stars Initial Velocity";
+                    ColorButtonsList.ForEach(button => button.GetComponent<ChangeColorOnClick>().divider = 200);
+                    ColorButtonsList[2].GetComponent<ChangeColorOnClick>().divider = 100;
                     break;
                 case SimulationType.Universe:
                     galaxiesDistanceSlider.gameObject.SetActive(false);
@@ -85,7 +91,7 @@ namespace Simulation
                     BodiesCountSlider.GetComponent<SliderUi>().Label.text = "Number of Galaxies";
                     RadiusSlider.GetComponent<SliderUi>().Label.text = "Universe Radius";
                     initialVelocitySlider.GetComponent<SliderUi>().Label.text = "Galaxies Initial Velocity";
-
+                    ColorButtonsList.ForEach(button => button.GetComponent<ChangeColorOnClick>().divider = 30);
                     break;
 
             }
@@ -101,7 +107,7 @@ namespace Simulation
             switch (GlobalManager.Instance.SimulationParameter.simulationType)
             {
                 case SimulationType.Galaxy:
-                    Camera.main.transform.rotation = Quaternion.Euler(90, 0, 0);
+                    Camera.main.transform.rotation = Quaternion.Euler(60, -3, 0);
                     Camera.main.GetComponent<CameraMovement>().AutoRotation = false;
                     Camera.main.GetComponent<CameraMovement>().DistanceToTarget = radiusSlider.value;
 
