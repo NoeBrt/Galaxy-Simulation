@@ -9,7 +9,7 @@ public class CameraMovement : MonoBehaviour
     [SerializeField] private Camera cam;
     [SerializeField] private Transform target;
     [SerializeField] private float distanceToTarget = 30;
-    [SerializeField] private float mouseScroolSpeed = 100f;
+    [SerializeField] private float mouseScroolSpeed = 1000f;
     [SerializeField] GameObject canva;
     [SerializeField] private float autoRotationSpeed = 2f;
     public float rotationSpeed = 10f;
@@ -46,7 +46,15 @@ public class CameraMovement : MonoBehaviour
         {
             cam.transform.RotateAround(target.position, transform.up, Time.deltaTime * autoRotationSpeed);
         }
-        DistanceToTarget += -Input.mouseScrollDelta.y * mouseScroolSpeed * Time.deltaTime;
+
+
+        //if shift is pressed, accelerate the zoom
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            DistanceToTarget += -Input.mouseScrollDelta.y * mouseScroolSpeed * Time.deltaTime * 10;
+        } else {
+            DistanceToTarget += -Input.mouseScrollDelta.y * mouseScroolSpeed * Time.deltaTime;
+        }
         cam.transform.Translate(new Vector3(0, 0, -DistanceToTarget));
 
         previousPosition = newPosition;

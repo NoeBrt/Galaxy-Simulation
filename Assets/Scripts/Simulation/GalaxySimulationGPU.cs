@@ -63,7 +63,11 @@ namespace Simulation
                 RunComputeShader();
                 UpdateDynamicParameter(simulationParameter.SmoothingLength, simulationParameter.InteractionRate, simulationParameter.BlackHoleMass,simulationParameter.TimeStep, simulationParameter.Color.colorStart, simulationParameter.Color.colorEnd, simulationParameter.Color.divider);
             }
+            if(Input.GetKeyDown("escape")) {
+                Application.Quit();
+            }
         }
+
         void RunComputeShader()
         {
             computeShader.Dispatch(kernel, starCount / 128 + 1, 1, 1);

@@ -10,6 +10,7 @@ public class SliderValueToText : MonoBehaviour
     void OnEnable()
     {
         textSliderValue = GetComponent<Text>();
+        textSliderValue.text = System.Math.Round(sliderUI.value, 3).ToString();
         //textSliderValue.text = sliderUI.value + "";
 
     }
