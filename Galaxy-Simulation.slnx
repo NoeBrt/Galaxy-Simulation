@@ -1,0 +1,4 @@
+﻿<Solution>
+  <Project Path="Nobi.UiRoundedCorners.csproj" />
+  <Project Path="Assembly-CSharp.csproj" />
+</Solution>

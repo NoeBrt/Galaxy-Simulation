@@ -45,7 +45,7 @@ Shader "Custom/StarShader"
                 Star star = starBuffer[vertexID];
                 o.vertex = TransformObjectToHClip(float4(star.position.xyz, 1.0));
                 o.speed = length(star.velocity);
-                o.pointSize = 0.1;  // Set your desired point size here
+                o.pointSize = 1;  // Set your desired point size here
                 return o;
             }
 
