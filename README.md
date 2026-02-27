@@ -34,6 +34,7 @@ With the mouse, the user can rotate and zoom in/out around the simulation and us
 *Universe Simulation with 500 000 galaxies*
 
 ![Simulation image 2](https://img.itch.zone/aW1nLzEyODQ3ODMwLnBuZw==/original/qriNpl.png)
+<img width="1497" height="982" alt="Screenshot 2026-02-26 at 17 28 46" src="https://github.com/user-attachments/assets/63dac402-8ab0-485f-917a-1999d930e4be" />
 *Galaxy with 150 000 stars*
 
 ![Galaxy Collision Simulation example](https://github.com/user-attachments/assets/bf7c00d5-d953-4e1f-98b8-e5dcc6858076)
